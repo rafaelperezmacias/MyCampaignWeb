@@ -15,7 +15,11 @@ class CreateAdministratorsTable extends Migration
     {
         Schema::create('administrators', function (Blueprint $table) {
             $table->id();
+
+            $table->string('name', 120);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

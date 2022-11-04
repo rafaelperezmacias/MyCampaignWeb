@@ -15,7 +15,11 @@ class CreateCampaignSympathizerTable extends Migration
     {
         Schema::create('campaign_sympathizer', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+
+            $table->foreignId('campaign_id')->constrained();
+            $table->foreignId('sympathizer_id')->constrained();
+
+            $table->softDeletes();
         });
     }
 

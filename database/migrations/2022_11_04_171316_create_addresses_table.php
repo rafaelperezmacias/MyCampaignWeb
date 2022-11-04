@@ -14,8 +14,16 @@ class CreateAddressesTable extends Migration
     public function up()
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->id();
+            $table->string('street', 70);
+            $table->string('external_number', 10);
+            $table->string('internal_number', 10);
+            $table->string('suburb', 50); // Colonia
+            $table->string('zipcode', 10);
+
+            $table->foreignId('volunteer_id')->constrained()->onDelete('cascade');;
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -15,7 +15,16 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('section', 10);
+
+            $table->foreignId('state_id')->constrained();
+            $table->foreignId('municipality_id')->constrained();
+            $table->foreignId('federal_district_id')->constrained();
+            $table->foreignId('local_district_id')->constrained();
+
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+            $table->softDeletes();
         });
     }
 

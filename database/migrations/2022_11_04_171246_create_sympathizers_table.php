@@ -15,7 +15,11 @@ class CreateSympathizersTable extends Migration
     {
         Schema::create('sympathizers', function (Blueprint $table) {
             $table->id();
+
+            $table->string('name', 120);
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

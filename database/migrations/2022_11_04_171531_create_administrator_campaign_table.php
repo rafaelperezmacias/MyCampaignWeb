@@ -15,7 +15,11 @@ class CreateAdministratorCampaignTable extends Migration
     {
         Schema::create('administrator_campaign', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+
+            $table->foreignId('administrator_id')->constrained();
+            $table->foreignId('campaign_id')->constrained();
+
+            $table->softDeletes();
         });
     }
 
