@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdministratorController;
+use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\SympathizerController;
 use Illuminate\Support\Facades\Route;
 
 /*
