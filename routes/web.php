@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
 });
 
@@ -25,4 +25,18 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-});
+}); */
+
+// Home
+Route::get('home', function() {
+    return view('home');
+})->name('home');
+
+// Administradores
+Route::resource('administrators', AdministratorController::class);
+
+// Campañas
+Route::resource('campaigns', CampaignController::class);
+
+// Simpatizantes
+Route::resource('sympathizers', SympathizerController::class);

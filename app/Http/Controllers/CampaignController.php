@@ -15,6 +15,12 @@ class CampaignController extends Controller
     public function index()
     {
         //
+        $campaigns = Campaign::get();
+
+        return view('campaigns.index')
+            ->with([
+                'campaigns' => $campaigns
+            ]);
     }
 
     /**
@@ -25,6 +31,7 @@ class CampaignController extends Controller
     public function create()
     {
         //
+        return view('campaigns.form');
     }
 
     /**
@@ -36,6 +43,25 @@ class CampaignController extends Controller
     public function store(Request $request)
     {
         //
+        // Validaciones
+        /* $request->validate([
+            'name'           => ['required', 'string', 'max:100', 'min:1'],
+            'party'          => ['required', 'string', 'max:100', 'min:1'],
+            'start_date'     => ['required', 'string', 'max:30', 'min:8'],
+            'end_date'       => ['gt:0'],
+            'description'    => ['gt:0'],
+        ]); */
+
+        // Insertar el id del administrador logueado
+        $request->merge([
+            'owner' => 1
+        ]);
+
+        $campaign = Campaign::create( $request->all() );
+
+        $campaign->administrators()->attach(1);
+
+        return redirect()->route('campaigns.index');
     }
 
     /**
