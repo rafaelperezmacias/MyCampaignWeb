@@ -18,6 +18,8 @@ class CreateAdministratorsTable extends Migration
 
             $table->string('name', 120);
 
+            $table->unsignedBigInteger('current_campaign')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

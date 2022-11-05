@@ -27,14 +27,14 @@
                     <div class="col-sm-6">
                         @if (isset($campaign))
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Inicio</a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('campaigns.index') }}">Campañas</a></li>
                                 <li class="breadcrumb-item"><a href="/campaigns/{{ $campaign->id }}">{{ $campaign->name }}</a></li>
                                 <li class="breadcrumb-item active">Editar campaña</li>
                             </ol>
                         @else
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Inicio</a></li>
                                 <li class="breadcrumb-item"><a href="{{ route('campaigns.index') }}">Campañas</a></li>
                                 <li class="breadcrumb-item active">Crear campaña</li>
                             </ol>

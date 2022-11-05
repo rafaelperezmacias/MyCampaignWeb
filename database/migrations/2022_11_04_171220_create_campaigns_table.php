@@ -28,6 +28,10 @@ class CreateCampaignsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Schema::table('administrators', function (Blueprint $table) {
+            $table->foreign('current_campaign')->references('id')->on('campaigns');
+        });
     }
 
     /**

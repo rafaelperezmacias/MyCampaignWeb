@@ -39,7 +39,7 @@
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-header">MENU</li>
                         <li class="nav-item">
-                            <a href="{{ route('home') }}" class="nav-link">
+                            <a href="{{ route('home.index') }}" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>Inicio</p>
                             </a>
