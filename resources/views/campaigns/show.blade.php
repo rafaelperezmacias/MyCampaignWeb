@@ -38,6 +38,11 @@
                     <div class="col-lg-7">
                         <div class="card">
                             <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 text-right">
+                                        <h1><a href="{{route('campaigns.edit', [$campaign->id])}}" type="reset" class="btn btn-outline-primary align-bottom pl-5 pr-5">Editar</a></h1>
+                                    </div>
+                                </div>
                                 <form action=" {{ route('campaigns.store') }}" method="POST">
                                     @csrf
                                     <h6 class="d-flex @error('name') text-danger @enderror">Nombre</h6>

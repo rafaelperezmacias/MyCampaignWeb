@@ -83,7 +83,7 @@ class CampaignController extends Controller
      */
     public function edit(Campaign $campaign)
     {
-        return view('productos.productosForm', compact('producto'));
+        return view('campaigns.form', compact('campaign'));
     }
 
     /**
@@ -96,7 +96,7 @@ class CampaignController extends Controller
     public function update(Request $request, Campaign $campaign)
     {
         Campaign::where('id', $campaign->id)->update($request->except('_token', '_method'));
-        return redirect()->route('camapaigns.show', [$campaign])->with(['mensaje' => 'Campaña actualizada', 'alert-type' => 'alert-success']);
+        return redirect()->route('campaigns.show', [$campaign])->with(['mensaje' => 'Campaña actualizada', 'alert-type' => 'alert-success']);
     }
 
     /**

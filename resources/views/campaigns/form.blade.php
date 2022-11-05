@@ -18,14 +18,27 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Agregar una nueva campaña</h1>
+                        @if (isset($campaign))
+                            <h1>Actualizar campaña</h1>
+                        @else
+                            <h1>Agregar una nueva campaña</h1>
+                        @endif
                     </div>
                     <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('campaigns.index') }}">Campañas</a></li>
-                            <li class="breadcrumb-item active">Crear campaña</li>
-                        </ol>
+                        @if (isset($campaign))
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('campaigns.index') }}">Campañas</a></li>
+                                <li class="breadcrumb-item"><a href="/campaigns/{{ $campaign->id }}">{{ $campaign->name }}</a></li>
+                                <li class="breadcrumb-item active">Editar campaña</li>
+                            </ol>
+                        @else
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('campaigns.index') }}">Campañas</a></li>
+                                <li class="breadcrumb-item active">Crear campaña</li>
+                            </ol>
+                        @endif
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -38,13 +51,18 @@
                     <div class="col-lg-7">
                         <div class="card">
                             <div class="card-body">
-                                <form action=" {{ route('campaigns.store') }}" method="POST">
+                                @if (isset($campaign))
+                                    <form action=" {{ route('campaigns.update', $campaign) }}" method="POST">
+                                    @method('PUT')
+                                 @else
+                                    <form action=" {{ route('campaigns.store') }}" method="POST">
+                                @endif
                                     @csrf
                                     <h6 class="d-flex @error('name') text-danger @enderror">Nombre</h6>
                                     <div class="form-group ">
                                         <input type="text" name="name" id="name"
                                             class="form-control @error('name') is-invalid @enderror"
-                                            placeholder="Ingrese el nombre de la campaña" value="{{ old('name') }}">
+                                            placeholder="Ingrese el nombre de la campaña" value="{{ old('name') ?? ($campaign->name ?? '') }}">
                                         @error('name')
                                             <div class="invalid-feedback">
                                                 <i class="bx bx-radio-circle"></i>
@@ -57,7 +75,7 @@
                                         <input type="text" name="party" id="party"
                                             class="form-control @error('party') is-invalid @enderror"
                                             placeholder="Ingrese el nombre del partido político"
-                                            value="{{ old('party') }}">
+                                            value="{{ old('party') ?? ($campaign->party ?? '') }}">
                                         @error('party')
                                             <div class="invalid-feedback">
                                                 <i class="bx bx-radio-circle"></i>
@@ -73,7 +91,7 @@
                                             <div class="form-group">
                                                 <input type="date" name="start_date" id="start_date"
                                                     class="form-control @error('start_date') is-invalid @enderror"
-                                                    placeholder="Ingrese el nombre" value="{{ old('start_date') }}">
+                                                    placeholder="Ingrese el nombre" value="{{ old('start_date') ?? ($campaign->start_date ?? '') }}">
                                                 @error('start_date')
                                                     <div class="invalid-feedback">
                                                         <i class="bx bx-radio-circle"></i>
@@ -88,7 +106,7 @@
                                             <div class="form-group">
                                                 <input type="date" name="end_date" id="end_date"
                                                     class="form-control @error('end_date') is-invalid @enderror"
-                                                    placeholder="Ingrese los apellidos" value="{{ old('end_date') }}">
+                                                    placeholder="Ingrese los apellidos" value="{{ old('end_date') ?? ($campaign->end_date ?? '') }}">
                                                 @error('end_date')
                                                     <div class="invalid-feedback">
                                                         <i class="bx bx-radio-circle"></i>
@@ -103,7 +121,7 @@
                                     </h6>
                                     <div class="form-group">
                                         <textarea class="form-control  @error('description') is-invalid @enderror" name="description" id="description"
-                                            rows="7" placeholder="Ingrese una breve descripcion de su campaña"></textarea>
+                                            rows="7" placeholder="Ingrese una breve descripcion de su campaña">{{ old('description') ?? ($campaign->description ?? '') }}</textarea>
                                         @error('description')
                                             <div class="invalid-feedback">
                                                 <i class="bx bx-radio-circle"></i>
@@ -116,7 +134,11 @@
                                         <div class="col-6">
                                             <button type="submit" class="btn btn-outline-primary btn-block">
                                                 <strong>
-                                                    GUARDAR
+                                                    @if (isset($campaign))
+                                                        ACTUALIZAR
+                                                    @else
+                                                        GUARDAR
+                                                    @endif
                                                 </strong>
                                             </button>
                                         </div>
