@@ -32,64 +32,57 @@
         </section>
         <!-- Main content -->
         <section class="content">
-            <!-- Default box -->
-            <div class="card ml-2 mr-2">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form action=" {{ route('campaigns.store') }}" method="POST">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h6 class="d-flex @error('name') text-danger @enderror">Nombre</h6>
-                                        <div class="form-group ">
-                                            <input type="text" name="name" id="name"
-                                                class="form-control @error('name') is-invalid @enderror"
-                                                placeholder="Ingrese el nombre de la campaña" value="{{ old('name') }}">
-                                            @error('name')
-                                                <div class="invalid-feedback">
-                                                    <i class="bx bx-radio-circle"></i>
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
+            <div class="container-fluid">
+                <!-- Default box -->
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action=" {{ route('campaigns.store') }}" method="POST">
+                                    @csrf
+                                    <h6 class="d-flex @error('name') text-danger @enderror">Nombre</h6>
+                                    <div class="form-group ">
+                                        <input type="text" name="name" id="name"
+                                            class="form-control @error('name') is-invalid @enderror"
+                                            placeholder="Ingrese el nombre de la campaña" value="{{ old('name') }}">
+                                        @error('name')
+                                            <div class="invalid-feedback">
+                                                <i class="bx bx-radio-circle"></i>
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h6 class="d-flex @error('party') text-danger @enderror">Partido político</h6>
-                                        <div class="form-group ">
-                                            <input type="text" name="party" id="party"
-                                                class="form-control @error('party') is-invalid @enderror"
-                                                placeholder="Ingrese el nombre del partido político"
-                                                value="{{ old('party') }}">
-                                            @error('party')
-                                                <div class="invalid-feedback">
-                                                    <i class="bx bx-radio-circle"></i>
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
+                                    <h6 class="d-flex @error('party') text-danger @enderror">Partido político</h6>
+                                    <div class="form-group ">
+                                        <input type="text" name="party" id="party"
+                                            class="form-control @error('party') is-invalid @enderror"
+                                            placeholder="Ingrese el nombre del partido político"
+                                            value="{{ old('party') }}">
+                                        @error('party')
+                                            <div class="invalid-feedback">
+                                                <i class="bx bx-radio-circle"></i>
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-12">
-                                        <h6 class="d-flex @error('start_date') text-danger @enderror">Fecha de inicio de la
-                                            campaña</h6>
-                                        <div class="form-group">
-                                            <input type="date" name="start_date" id="start_date"
-                                                class="form-control @error('start_date') is-invalid @enderror"
-                                                placeholder="Ingrese el nombre" value="{{ old('start_date') }}">
-                                            @error('start_date')
-                                                <div class="invalid-feedback">
-                                                    <i class="bx bx-radio-circle"></i>
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h6 class="d-flex @error('start_date') text-danger @enderror">Fecha de inicio de
+                                                la
+                                                campaña</h6>
+                                            <div class="form-group">
+                                                <input type="date" name="start_date" id="start_date"
+                                                    class="form-control @error('start_date') is-invalid @enderror"
+                                                    placeholder="Ingrese el nombre" value="{{ old('start_date') }}">
+                                                @error('start_date')
+                                                    <div class="invalid-feedback">
+                                                        <i class="bx bx-radio-circle"></i>
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="col-12">
+                                        <div class="col-lg-6">
                                             <h6 class="d-flex @error('end_date') text-danger @enderror">Fecha de fin de la
                                                 campaña</h6>
                                             <div class="form-group">
@@ -105,42 +98,39 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h6 class="d-flex @error('description') text-danger @enderror">Descrpción (Opcional)
-                                        </h6>
-                                        <div class="form-group">
-                                            <textarea class="form-control  @error('description') is-invalid @enderror" name="description" id="description"
-                                                rows="7" placeholder="Ingrese una breve descripcion de su campaña"></textarea>
-                                            @error('description')
-                                                <div class="invalid-feedback">
-                                                    <i class="bx bx-radio-circle"></i>
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                    <h6 class="d-flex @error('description') text-danger @enderror">Descrpción
+                                        (Opcional)
+                                    </h6>
+                                    <div class="form-group">
+                                        <textarea class="form-control  @error('description') is-invalid @enderror" name="description" id="description"
+                                            rows="7" placeholder="Ingrese una breve descripcion de su campaña"></textarea>
+                                        @error('description')
+                                            <div class="invalid-feedback">
+                                                <i class="bx bx-radio-circle"></i>
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3"></div>
+                                        <div class="col-6">
+                                            <button type="submit" class="btn btn-outline-primary btn-block">
+                                                <strong>
+                                                    GUARDAR
+                                                </strong>
+                                            </button>
                                         </div>
+                                        <div class="col-3"></div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-3"></div>
-                                    <div class="col-6">
-                                        <button type="submit" class="btn btn-outline-primary btn-block">
-                                            <strong>
-                                                GUARDAR
-                                            </strong>
-                                        </button>
-                                    </div>
-                                    <div class="col-3"></div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-lg-5"></div>
+                    <!-- /.card-footer-->
                 </div>
-                <!-- /.card-footer-->
             </div>
             <!-- /.card -->
-
         </section>
         <!-- /.content -->
     </div>

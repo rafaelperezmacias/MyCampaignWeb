@@ -60,7 +60,7 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&d
                             <td> {{ $campaign->start_date }} - {{ $campaign->end_date }} </td>
                             <td>
                                 <a href="{{ route('campaigns.show', $campaign) }}" class="btn-sm btn-outline-success icon icon-left pt-2">
-                                    <i class="bi bi-search"></i> Detalles
+                                    <i class="fas fa-search"></i> Detalles
                                 </a>
                             </td>
                         </tr>
