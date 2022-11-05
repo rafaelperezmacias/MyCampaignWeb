@@ -27,7 +27,7 @@ class AdministratorSeeder extends Seeder
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
             'userable_id' => $administrator->id,
-            'userable_type' => 'Administrator'
+            'userable_type' => 'App\Models\Administrator'
         ]);
     }
 }
