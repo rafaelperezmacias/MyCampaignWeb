@@ -45,9 +45,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('campaigns.index') }}" class="nav-link">
+                            <a href="{{ route('campaigns.show', $campaign) }}" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
-                                <p>Campañas</p>
+                                <p>Campaña</p>
                             </a>
                         </li>
                         <li class="nav-item">

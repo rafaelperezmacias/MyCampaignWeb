@@ -22,4 +22,8 @@ class Administrator extends Model
     public function campaigns() {
         return $this->belongsToMany(Campaign::class);
     }
+
+    public function currentCampaign() {
+        return $this->hasOne(Campaign::class, 'id', 'current_campaign');
+    }
 }

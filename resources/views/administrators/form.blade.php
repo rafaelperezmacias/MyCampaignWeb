@@ -18,14 +18,27 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Agregar un nuevo administrador</h1>
+                        @if ( isset($administrator) )
+                            <h1>Editar administrador</h1>
+                        @else
+                            <h1>Agregar un nuevo administrador</h1>
+                        @endif
                     </div>
                     <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('administrators.index') }}">Administradores</a></li>
-                            <li class="breadcrumb-item active">Crear administrador</li>
-                        </ol>
+                        @if ( isset($administrator) )
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Inicio</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('administrators.index') }}">Administradores</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('administrators.show', $administrator) }}">{{ $administrator->name }}</a></li>
+                                <li class="breadcrumb-item active">Editar administrador</li>
+                            </ol>
+                        @else
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Inicio</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('administrators.index') }}">Administradores</a></li>
+                                <li class="breadcrumb-item active">Crear administrador</li>
+                            </ol>
+                        @endif
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -38,13 +51,18 @@
                     <div class="col-lg-7">
                         <div class="card">
                             <div class="card-body">
-                                <form action=" {{ route('administrators.store') }}" method="POST">
+                                @if ( isset($administrator) )
+                                    <form action=" {{ route('administrators.update', $administrator) }}" method="POST">
+                                    @method('PUT')
+                                @else
+                                    <form action=" {{ route('administrators.store') }}" method="POST">
+                                @endif
                                     @csrf
                                     <h6 class="d-flex @error('name') text-danger @enderror">Nombre</h6>
                                     <div class="form-group ">
                                         <input type="text" name="name" id="name"
                                             class="form-control @error('name') is-invalid @enderror"
-                                            placeholder="Ingrese el nombre completo del nuevo administrador" value="{{ old('name') }}">
+                                            placeholder="Ingrese el nombre completo del nuevo administrador" value="{{ old('name') ?? ($administrator->name ?? '') }}">
                                         @error('name')
                                             <div class="invalid-feedback">
                                                 <i class="bx bx-radio-circle"></i>
@@ -56,7 +74,7 @@
                                     <div class="form-group ">
                                         <input type="email" name="email" id="email"
                                             class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="Ingrese el correo electrónico del nuevo administrador" value="{{ old('email') }}">
+                                            placeholder="Ingrese el correo electrónico del nuevo administrador" value="{{ old('email') ?? ($administrator->user->email ?? '') }}">
                                         @error('email')
                                             <div class="invalid-feedback">
                                                 <i class="bx bx-radio-circle"></i>
@@ -68,7 +86,7 @@
                                     <div class="form-group ">
                                         <input type="password" name="password" id="password"
                                             class="form-control @error('password') is-invalid @enderror"
-                                            placeholder="Ingrese la contraseña de acceso del nuevo administrador" value="{{ old('password') }}">
+                                            placeholder="Ingrese la contraseña de acceso del nuevo administrador" value="{{ old('password') ?? ($administrator->user->password ?? '') }}">
                                         @error('password')
                                             <div class="invalid-feedback">
                                                 <i class="bx bx-radio-circle"></i>
@@ -81,7 +99,11 @@
                                         <div class="col-6">
                                             <button type="submit" class="btn btn-outline-primary btn-block">
                                                 <strong>
-                                                    GUARDAR
+                                                    @if ( isset($administrator) )
+                                                        ACTUALIZAR
+                                                    @else
+                                                        GUARDAR
+                                                    @endif
                                                 </strong>
                                             </button>
                                         </div>

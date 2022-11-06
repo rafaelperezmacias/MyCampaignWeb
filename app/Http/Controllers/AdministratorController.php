@@ -18,16 +18,16 @@ class AdministratorController extends Controller
     public function index()
     {
         //
-        $administrators = Administrator::query()->with([
-            'user' => function (MorphOne $morphTo) {
-                $morphTo->morphMap([
-                    User::class => ['user']
-                ]);
-            }
-        ])->get();
+        // Campaña actual
+        // TODO: Cuando se implemente la autentificacion cambiar este code
+        $administrator = Administrator::get()->first();
+
+        $administrators = $administrator->currentCampaign->administrators;
+
         return view('administrators.index')
             ->with([
-                'administrators' => $administrators
+                'administrators' => $administrators,
+                'campaign' => $administrator->currentCampaign,
             ]);
     }
 
@@ -39,7 +39,15 @@ class AdministratorController extends Controller
     public function create()
     {
         //
-        return view('administrators.form');
+
+        // Campaña actual
+        // TODO: Cuando se implemente la autentificacion cambiar este code
+        $administrator = Administrator::get()->first();
+
+        return view('administrators.form')
+            ->with([
+                'campaign' => $administrator->currentCampaign
+            ]);
     }
 
     /**
@@ -51,6 +59,10 @@ class AdministratorController extends Controller
     public function store(Request $request)
     {
         //
+
+        // Campaña actual
+        // TODO: Cuando se implemente la autentificacion cambiar este code
+        $currentAdministrator = Administrator::get()->first();
 
         $administrator = Administrator::create([
             'name' => $request->name
@@ -65,7 +77,7 @@ class AdministratorController extends Controller
             'userable_type' => 'App\Models\Administrator'
         ]);
 
-        $administrator->campaigns()->attach(1);
+        $administrator->campaigns()->attach($currentAdministrator->currentCampaign->id);
 
         return redirect()->route('administrators.index');
     }
@@ -79,6 +91,16 @@ class AdministratorController extends Controller
     public function show(Administrator $administrator)
     {
         //
+
+        // Campaña actual
+        // TODO: Cuando se implemente la autentificacion cambiar este code
+        $currentAdministrator = Administrator::get()->first();
+
+        return view('administrators.show')
+            ->with([
+                'campaign' => $currentAdministrator->currentCampaign,
+                'administrator' => $administrator,
+            ]);
     }
 
     /**
@@ -90,6 +112,16 @@ class AdministratorController extends Controller
     public function edit(Administrator $administrator)
     {
         //
+
+        // Campaña actual
+        // TODO: Cuando se implemente la autentificacion cambiar este code
+        $administrator = Administrator::get()->first();
+
+        return view('administrators.form')
+            ->with([
+                'campaign' => $administrator->currentCampaign,
+                'administrator' => $administrator
+            ]);
     }
 
     /**
@@ -102,6 +134,17 @@ class AdministratorController extends Controller
     public function update(Request $request, Administrator $administrator)
     {
         //
+        Administrator::where('id', $administrator->id)->update($request->only('name'));
+        User::where('id', $administrator->user->id)->update($request->only('email', 'password'));
+
+        // Campaña actual
+        // TODO: Cuando se implemente la autentificacion cambiar este code
+        $administrator = Administrator::get()->first();
+
+        return redirect()->route('administrators.show', [$administrator])
+            ->with([
+                'campaign' => $administrator->currentCampaign,
+            ]);
     }
 
     /**

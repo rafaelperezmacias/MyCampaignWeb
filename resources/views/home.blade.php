@@ -58,7 +58,7 @@
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 @foreach ($firtsCampaigns as $campaign)
                     <div class="col">
-                        <div class="card card-success h-90" id="card{{ $loop->index }}">
+                        <div class="card card-success h-90 elevation-2" id="card{{ $loop->index }}">
                             <div class="card-header"></div>
                             <div class="card-body">
                                 <p class="card-title font-weight-bold">{{ $campaign->name }}</p>

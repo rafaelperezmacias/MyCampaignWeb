@@ -33,11 +33,12 @@ class HomeController extends Controller
     public function campaign(Request $request) {
 
         $administrator = Administrator::get()->first();
-
         $administrator->current_campaign = $request->campaign_id;
-
         $administrator->save();
 
-        return view('campaigns.form');
+        return view('campaigns.show')
+            ->with([
+                'campaign' => $administrator->currentCampaign,
+            ]);
     }
 }
