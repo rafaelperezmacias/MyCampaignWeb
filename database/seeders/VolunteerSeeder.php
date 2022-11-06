@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Volunteer;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class VolunteerSeeder extends Seeder
 {
@@ -14,5 +16,16 @@ class VolunteerSeeder extends Seeder
     public function run()
     {
         //
+        $volunteer = Volunteer::create([
+            'name' => 'admin@admin.com',
+            'fathers_lastname' => 'admin@admin.com',
+            'mothers_lastname' => 'admin@admin.com',
+            'email' => 'admin@admin.com',
+            'phone' => 'admin@admin.com',
+
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'userable_id' => $administrator->id,
+        ]);
     }
 }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sympathizer;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class SympathizerController extends Controller
 {
@@ -15,6 +18,17 @@ class SympathizerController extends Controller
     public function index()
     {
         //
+        $sympathizers = Sympathizer::query()->with([
+            'user' => function (MorphOne $morphTo) {
+                $morphTo->morphMap([
+                    User::class => ['user']
+                ]);
+            }
+        ])->get();
+        return view('sympathizers.index')
+            ->with([
+                'sympathizers' => $sympathizers
+            ]);
     }
 
     /**
@@ -25,6 +39,7 @@ class SympathizerController extends Controller
     public function create()
     {
         //
+        return view('sympathizers.form');
     }
 
     /**
@@ -36,6 +51,23 @@ class SympathizerController extends Controller
     public function store(Request $request)
     {
         //
+
+        $sympathizer = Sympathizer::create([
+            'name' => $request->name
+        ]);
+
+        $user = User::create([
+            'email' => $request->email,
+            'password' => $request->password,
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'userable_id' => $sympathizer->id,
+            'userable_type' => 'App\Models\Sympathizer'
+        ]);
+
+        $sympathizer->campaigns()->attach(1);
+
+        return redirect()->route('sympathizers.index');
     }
 
     /**

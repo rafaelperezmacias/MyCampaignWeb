@@ -4,6 +4,7 @@ use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SympathizerController;
+use App\Http\Controllers\VolunteerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,3 +61,6 @@ Route::resource('campaigns', CampaignController::class);
 
 // Simpatizantes
 Route::resource('sympathizers', SympathizerController::class);
+
+// Voluntarios
+Route::resource('volunteers', VolunteerController::class);

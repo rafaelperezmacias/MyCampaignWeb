@@ -14,7 +14,13 @@ class VolunteerFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'fathers_lastname' => $this->faker->lastname,
+            'mothers_lastname' => $this->faker->lastname,
+            'email' => $this->faker->unique()->safeEmail,
+            'phone' => '1234567890',
+            'section_id' => Section::factory(),
+            'sympathizer_id' => Sympathizer::factory(),
         ];
     }
 }
