@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Administrator;
 use App\Models\Sympathizer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Facades\DB;
 
 class SympathizerController extends Controller
 {
@@ -18,16 +20,20 @@ class SympathizerController extends Controller
     public function index()
     {
         //
-        $sympathizers = Sympathizer::query()->with([
+        $currentAdministrator = Administrator::get()->first();
+
+        $sympathizers = Sympathizer::whereRelation('campaigns','campaign_id', $currentAdministrator->currentCampaign->id)->with([
             'user' => function (MorphOne $morphTo) {
                 $morphTo->morphMap([
                     User::class => ['user']
                 ]);
             }
         ])->get();
+
         return view('sympathizers.index')
             ->with([
-                'sympathizers' => $sympathizers
+                'sympathizers' => $sympathizers,
+                'campaign' => $currentAdministrator->currentCampaign,
             ]);
     }
 
@@ -39,7 +45,12 @@ class SympathizerController extends Controller
     public function create()
     {
         //
-        return view('sympathizers.form');
+        $currentAdministrator = Administrator::get()->first();
+
+        return view('sympathizers.form')
+            ->with([
+                'campaign' => $currentAdministrator->currentCampaign,
+            ]);
     }
 
     /**
@@ -66,6 +77,8 @@ class SympathizerController extends Controller
         ]);
 
         $sympathizer->campaigns()->attach(1);
+
+        $currentAdministrator = Administrator::get()->first();
 
         return redirect()->route('sympathizers.index');
     }

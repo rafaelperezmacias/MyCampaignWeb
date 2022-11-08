@@ -19,11 +19,12 @@ class VolunteerController extends Controller
         $volunteers = Volunteer::with([
             'address',
             'auxVolunteer',
-            'section',
+            'section.state',
+            'section.federalDistrict',
+            'section.localDistrict',
+            'section.municipality',
             'sympathizer'
         ])->get();
-
-        dd($volunteers);
 
         return view('volunteers.index')
             ->with([
