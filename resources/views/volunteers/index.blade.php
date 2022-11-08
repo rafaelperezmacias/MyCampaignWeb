@@ -57,7 +57,7 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&d
                         @foreach ($volunteers as $volunteer)
                         <tr>
                             <td> {{ $volunteer->name }} </td>
-                            <td> {{ $volunteer->user->email }} </td>
+                            <td> {{ $volunteer->email }} </td>
                             <td> {{ $volunteer->phone }} </td>
                             <td> {{ $volunteer->section_id }} </td>
                             <td>
