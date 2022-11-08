@@ -18,8 +18,7 @@ class CampaignFactory extends Factory
             'party' => $this->faker->companySuffix() ,
             'description' => $this->faker->text(100),
             'start_date' => $this->faker->dateTime(),
-            'end_date' => $this->faker->dateTime(),
-            'owner' => 1,
+            'end_date' => $this->faker->dateTime()
         ];
     }
 }

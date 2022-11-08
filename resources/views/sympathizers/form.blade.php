@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.main', ['sidebar' => 'Sympathizers'])
 
 @section('css')
     <!-- Google Font: Source Sans Pro -->
@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Inicio</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('sympathizers.index') }}">Simpatizantes</a></li>
                             <li class="breadcrumb-item active">Crear simpatizante</li>
                         </ol>
@@ -107,5 +107,5 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/adminlte.js') }}"></script>
 @endsection

@@ -23,6 +23,6 @@ class AuxVolunteer extends Model
     ];
 
     public function volunteer() {
-        return $this->hasOne(Volunteer::class);
+        return $this->belongsTo(Volunteer::class);
     }
 }

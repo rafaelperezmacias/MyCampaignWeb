@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.main', ['sidebar' => 'Volunteers'])
 
 @section('css')
     <!-- Google Font: Source Sans Pro -->
@@ -6,7 +6,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
 @endsection
 
 @section('content')
@@ -73,13 +73,13 @@
                                         <input type="date" name="birthdate" id="birthdate"
                                             class="form-control"
                                             placeholder="Ingrese la fecha de nacimiento"
-                                            value="{{$volunteer->birthdate}}" disabled="">
+                                            value="{{$volunteer->auxVolunteer->birthdate}}" disabled="">
                                     </div>
                                     <h6 class="d-flex">Calle(s)</h6>
                                     <div class="form-group ">
                                         <input type="text" name="street" id="street"
                                             class="form-control"
-                                            placeholder="Ingrese la calle" value="{{$address->external_number}}" disabled="">
+                                            placeholder="Ingrese la calle" value="{{$volunteer->address->external_number}}" disabled="">
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -87,7 +87,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="external_number" id="external_number"
                                                     class="form-control"
-                                                    placeholder="Ingrese el número exterior" value="{{$address->external_number}}" disabled="">
+                                                    placeholder="Ingrese el número exterior" value="{{$volunteer->address->external_number}}" disabled="">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -95,7 +95,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="internal_number" id="internal_number"
                                                     class="form-control"
-                                                    placeholder="Ingrese el numero interior" value="{{$address->internal_number}}" disabled="">
+                                                    placeholder="Ingrese el numero interior" value="{{$volunteer->address->internal_number}}" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +105,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="suburb" id="suburb"
                                                     class="form-control"
-                                                    placeholder="Ingrese la colonia" value="{{$address->suburb}}" disabled="">
+                                                    placeholder="Ingrese la colonia" value="{{$volunteer->address->suburb}}" disabled="">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -113,7 +113,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="zipcode" id="zipcode"
                                                     class="form-control"
-                                                    placeholder="Ingrese el código postal" value="{{$address->zipcode}}" disabled="">
+                                                    placeholder="Ingrese el código postal" value="{{$volunteer->address->zipcode}}" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -121,7 +121,7 @@
                                     <div class="form-group ">
                                         <input type="text" name="elector_key" id="elector_key"
                                             class="form-control"
-                                            placeholder="Ingrese la calle" value="{{$auxVolunteer->elector_key}}" disabled="">
+                                            placeholder="Ingrese la calle" value="{{$volunteer->auxVolunteer->elector_key}}" disabled="">
                                     </div>
                                     <h6 class="d-flex">Correo electrónico</h6>
                                     <div class="form-group ">
@@ -139,7 +139,7 @@
                                     <div class="form-group ">
                                         <input type="text" name="section" id="section"
                                             class="form-control"
-                                            placeholder="Ingrese su Sección" value="{{$section->section}}" disabled="">
+                                            placeholder="Ingrese su Sección" value="{{$volunteer->section->section}}" disabled="">
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -147,7 +147,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="municipality" id="municipality"
                                                     class="form-control"
-                                                    placeholder="Ingrese su municipio" value="{{$municipality->name}}" disabled="">
+                                                    placeholder="Ingrese su municipio" value="{{$volunteer->section->municipality->name}}" disabled="">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -155,7 +155,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="municipality_number" id="municipality_number"
                                                     class="form-control"
-                                                    placeholder="Ingrese el código postal" value="{{$municipality->number}}" disabled="">
+                                                    placeholder="Ingrese el código postal" value="{{$volunteer->section->municipality->number}}" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -163,7 +163,7 @@
                                     <div class="form-group ">
                                         <input type="text" name="sector" id="sector"
                                             class="form-control"
-                                            placeholder="Ingrese su teléfono" value="{{$auxVolunteer->sector}}" disabled="">
+                                            placeholder="Ingrese su teléfono" value="{{$volunteer->auxVolunteer->sector}}" disabled="">
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -171,7 +171,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="localDistrict" id="localDistrict"
                                                     class="form-control"
-                                                    placeholder="Ingrese su municipio" value="{{$localDistrict->name}}" disabled="">
+                                                    placeholder="Ingrese su municipio" value="{{$volunteer->section->localDistrict->name}}" disabled="">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -179,7 +179,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="localDistrict_number" id="localDistrict_number"
                                                     class="form-control"
-                                                    placeholder="Ingrese el código postal" value="{{$localDistrict->number}}" disabled="">
+                                                    placeholder="Ingrese el código postal" value="{{$volunteer->section->localDistrict->number}}" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="federalDistrict" id="federalDistrict"
                                                     class="form-control"
-                                                    placeholder="Ingrese su municipio" value="{{$federalDistrict->name}}" disabled="">
+                                                    placeholder="Ingrese su municipio" value="{{$volunteer->section->federalDistrict->name}}" disabled="">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -197,7 +197,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="federalDistrict_number" id="federalDistrict_number"
                                                     class="form-control"
-                                                    placeholder="Ingrese el código postal" value="{{$federalDistrict->number}}" disabled="">
+                                                    placeholder="Ingrese el código postal" value="{{$volunteer->section->federalDistrict->number}}" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -207,7 +207,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="state" id="state"
                                                     class="form-control"
-                                                    placeholder="Ingrese su municipio" value="{{$state->name}}" disabled="">
+                                                    placeholder="Ingrese su municipio" value="{{$volunteer->section->state->name}}" disabled="">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -215,7 +215,7 @@
                                             <div class="form-group">
                                                 <input type="text" name="state_number" id="state_number"
                                                     class="form-control"
-                                                    placeholder="Ingrese el código postal" value="{{$state->id}}" disabled="">
+                                                    placeholder="Ingrese el código postal" value="{{$volunteer->section->state->id}}" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -239,5 +239,5 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/adminlte.js') }}"></script>
 @endsection

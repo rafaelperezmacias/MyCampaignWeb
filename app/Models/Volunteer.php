@@ -20,15 +20,15 @@ class Volunteer extends Model
     ];
 
     public function address() {
-        return $this->belongsTo(Address::class);
+        return $this->hasOne(Address::class);
     }
 
     public function auxVolunteer() {
-        return $this->belongsTo(AuxVolunteer::class);
+        return $this->hasOne(AuxVolunteer::class);
     }
 
     public function section() {
-        return $this->belongsTo(Seccion::class);
+        return $this->belongsTo(Section::class);
     }
 
     public function sympathizer() {

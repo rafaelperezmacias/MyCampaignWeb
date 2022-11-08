@@ -16,8 +16,7 @@ class Campaign extends Model
         'party',
         'description',
         'start_date',
-        'end_date',
-        'owner'
+        'end_date'
     ];
 
     public function administrators() {

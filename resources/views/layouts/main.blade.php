@@ -59,13 +59,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../gallery.html" class="nav-link {{ isset($sidebar) && $sidebar == 'Sympathizers' ? 'active' : '' }}">
+                            <a href="{{ route('sympathizers.index') }}" class="nav-link {{ isset($sidebar) && $sidebar == 'Sympathizers' ? 'active' : '' }}">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>Simpatizantes</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../gallery.html" class="nav-link {{ isset($sidebar) && $sidebar == 'Volunteers' ? 'active' : '' }}">
+                            <a href="{{ route('volunteers.index') }}" class="nav-link {{ isset($sidebar) && $sidebar == 'Volunteers' ? 'active' : '' }}">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>Voluntarios</p>
                             </a>

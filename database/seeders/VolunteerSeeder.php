@@ -13,6 +13,7 @@ use App\Models\Section;
 use App\Models\Sympathizer;
 use App\Models\Address;
 use App\Models\AuxVolunteer;
+use App\Models\User;
 
 
 class VolunteerSeeder extends Seeder
@@ -53,6 +54,15 @@ class VolunteerSeeder extends Seeder
 
         $sympathizer = Sympathizer::create([
             'name' => 'Moy'
+        ]);
+
+        $user = User::create([
+            'email' => 'simpatizante@simpatizante.com',
+            'password' => 'password',
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'userable_id' => $sympathizer->id,
+            'userable_type' => 'App\Models\Sympathizer'
         ]);
 
         $volunteer = Volunteer::create([

@@ -17,6 +17,6 @@ class FederalDistrict extends Model
     ];
 
     public function section() {
-        return $this->belongsTo(Section::class);
+        return $this->hasOne(Section::class);
     }
 }

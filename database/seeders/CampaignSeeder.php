@@ -16,7 +16,5 @@ class CampaignSeeder extends Seeder
     {
         //
         Campaign::factory(20)->create();
-
-
     }
 }

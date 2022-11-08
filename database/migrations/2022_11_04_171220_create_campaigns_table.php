@@ -22,9 +22,6 @@ class CreateCampaignsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
 
-            $table->unsignedBigInteger('owner');
-            $table->foreign('owner')->references('id')->on('administrators');
-
             $table->timestamps();
             $table->softDeletes();
         });

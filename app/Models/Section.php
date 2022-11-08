@@ -16,19 +16,19 @@ class Section extends Model
     ];
 
     public function state() {
-        return $this->hasOne(State::class);
+        return $this->belongsTo(State::class);
     }
 
     public function federalDistrict() {
-        return $this->hasOne(FederalDistrict::class);
+        return $this->belongsTo(FederalDistrict::class);
     }
 
     public function localDistrict() {
-        return $this->hasOne(LocalDistrict::class);
+        return $this->belongsTo(LocalDistrict::class);
     }
 
     public function municipality() {
-        return $this->hasOne(Municipality::class);
+        return $this->belongsTo(Municipality::class);
     }
 
     public function volunteers() {

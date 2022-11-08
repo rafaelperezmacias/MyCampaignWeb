@@ -51,12 +51,6 @@ class CampaignController extends Controller
             'end_date'       => ['gt:0'],
             'description'    => ['gt:0'],
         ]); */
-
-        // Insertar el id del administrador logueado
-        $request->merge([
-            'owner' => 1
-        ]);
-
         $campaign = Campaign::create( $request->all() );
 
         $campaign->administrators()->attach(1);
