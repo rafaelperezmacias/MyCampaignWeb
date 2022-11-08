@@ -56,6 +56,11 @@ Route::get('/persona/{persona}', [PersonaController::class, 'show'])
 Route::get('/persona/{persona}/edit', [PersonaController::class, 'edit'])
     ->name('get-persona-edit')->middleware('auth');*/
 
+// Test
+Route::get('test', function() {
+    return view('test');
+})->name('test');
+
 // Campañas
 Route::resource('campaigns', CampaignController::class);
 

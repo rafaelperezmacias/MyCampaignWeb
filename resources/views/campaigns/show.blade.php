@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.main', ['sidebar' => 'Campaing'])
 
 @section('css')
     <!-- Google Font: Source Sans Pro -->
@@ -6,7 +6,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
 @endsection
 
 @section('content')
@@ -136,5 +136,5 @@
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/adminlte.js') }}"></script>
 @endsection

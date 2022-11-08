@@ -16,8 +16,8 @@ class CreateCampaignsTable extends Migration
         Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name', 30);
-            $table->string('party', 30); // Partido politico
+            $table->string('name', 50);
+            $table->string('party', 50); // Partido politico
             $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date');

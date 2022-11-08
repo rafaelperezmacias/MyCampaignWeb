@@ -1700,6 +1700,7 @@
   var SELECTOR_PUSHMENU_BTN = '[data-widget="pushmenu"]';
   var SELECTOR_LOGIN_BOX = '.login-box';
   var SELECTOR_REGISTER_BOX = '.register-box';
+  var SELECTOR_CAMPAIGN_BOX = '.campaign-box';
   var SELECTOR_PRELOADER = '.preloader';
   var CLASS_NAME_SIDEBAR_COLLAPSED$1 = 'sidebar-collapse';
   var CLASS_NAME_SIDEBAR_FOCUSED = 'sidebar-focused';
@@ -1793,7 +1794,7 @@
 
     _proto.fixLoginRegisterHeight = function fixLoginRegisterHeight() {
       var $body = $__default["default"]('body');
-      var $selector = $__default["default"](SELECTOR_LOGIN_BOX + ", " + SELECTOR_REGISTER_BOX);
+      var $selector = $__default["default"](SELECTOR_LOGIN_BOX + ", " + SELECTOR_REGISTER_BOX + ", " + SELECTOR_CAMPAIGN_BOX);
 
       if ($body.hasClass(CLASS_NAME_IFRAME_MODE)) {
         $body.css('height', '100%');

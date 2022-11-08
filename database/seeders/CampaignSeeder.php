@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Campaign;
 use Illuminate\Database\Seeder;
 
 class CampaignSeeder extends Seeder
@@ -14,5 +15,8 @@ class CampaignSeeder extends Seeder
     public function run()
     {
         //
+        Campaign::factory(20)->create();
+
+
     }
 }

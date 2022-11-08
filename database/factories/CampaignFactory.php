@@ -14,7 +14,12 @@ class CampaignFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->company() ,
+            'party' => $this->faker->companySuffix() ,
+            'description' => $this->faker->text(100),
+            'start_date' => $this->faker->dateTime(),
+            'end_date' => $this->faker->dateTime(),
+            'owner' => 1,
         ];
     }
 }

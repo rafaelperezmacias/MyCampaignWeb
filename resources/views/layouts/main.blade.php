@@ -45,25 +45,27 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
-                                <p>Campaña</p>
-                            </a>
+                            @if ( isset($campaign) )
+                                <a href="{{ route('campaigns.show', $campaign) }}" class="nav-link {{ isset($sidebar) && $sidebar == 'Campaing' ? 'active' : '' }}">
+                                    <i class="nav-icon far fa-image"></i>
+                                    <p>Campaña</p>
+                                </a>
+                            @endif
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('administrators.index') }}" class="nav-link">
+                            <a href="{{ route('administrators.index') }}" class="nav-link {{ isset($sidebar) && $sidebar == 'Administrators' ? 'active' : '' }}">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>Administradores</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../gallery.html" class="nav-link">
+                            <a href="../gallery.html" class="nav-link {{ isset($sidebar) && $sidebar == 'Sympathizers' ? 'active' : '' }}">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>Simpatizantes</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../gallery.html" class="nav-link">
+                            <a href="../gallery.html" class="nav-link {{ isset($sidebar) && $sidebar == 'Volunteers' ? 'active' : '' }}">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>Voluntarios</p>
                             </a>

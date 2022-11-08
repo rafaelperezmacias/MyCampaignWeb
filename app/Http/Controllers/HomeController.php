@@ -18,10 +18,15 @@ class HomeController extends Controller
     public function index()
     {
         //
-        $allCampaigns = Campaign::get();
-        $firtsCampaigns = Campaign::first()
-            ->take(8)
-            ->get();
+
+        // Campaña actual
+        // TODO: Cuando se implemente la autentificacion cambiar este code
+        $currentAdministrator = Administrator::get()->first();
+
+        $allCampaigns = $currentAdministrator->campaigns;
+
+        $firtsCampaigns = $currentAdministrator->campaigns
+            ->take(8);
 
         return view('home')
             ->with([
@@ -36,7 +41,7 @@ class HomeController extends Controller
         $administrator->current_campaign = $request->campaign_id;
         $administrator->save();
 
-        return view('campaigns.show')
+        return redirect()->route('campaigns.show', $administrator->currentCampaign)
             ->with([
                 'campaign' => $administrator->currentCampaign,
             ]);
