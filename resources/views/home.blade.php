@@ -343,12 +343,14 @@
 
 @if ( session()->has('mensaje') )
     <script>
-        window.onload = function() {
-        Swal.fire({
-            icon: "{{session('alert-type')}}",
-            title: "{{session('mensaje')}}",
+        $(document).ready(function() {
+            setTimeout(() => {
+                Swal.fire({
+                    icon: "{{session('alert-type')}}",
+                    title: "{{session('mensaje')}}",
+                });
+            }, 10);
         });
-    }
     </script>
 @endif
 

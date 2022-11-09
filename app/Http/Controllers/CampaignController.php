@@ -108,6 +108,6 @@ class CampaignController extends Controller
     public function destroy(Campaign $campaign)
     {
         $campaign->delete();
-        return redirect()->route('home.index')->with(['mensaje' => 'Campaña eliminada', 'alert-type' => 'warning']);
+        return redirect()->route('home.index')->with(['mensaje' => 'Campaña eliminada', 'alert-type' => 'error']);
     }
 }
