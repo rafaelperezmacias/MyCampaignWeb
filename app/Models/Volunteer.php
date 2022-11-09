@@ -34,4 +34,8 @@ class Volunteer extends Model
     public function sympathizer() {
         return $this->belongsTo(Sympathizer::class);
     }
+
+    public function campaign() {
+        return $this->belongsTo(Campaign::class);
+    }
 }

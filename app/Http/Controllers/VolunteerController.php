@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Administrator;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,9 @@ class VolunteerController extends Controller
     public function index()
     {
         //
-        $volunteers = Volunteer::with([
+        $currentAdministrator = Administrator::get()->first();
+
+        $volunteers = Volunteer::whereRelation('campaign','campaign_id', $currentAdministrator->currentCampaign->id)->with([
             'address',
             'auxVolunteer',
             'section.state',

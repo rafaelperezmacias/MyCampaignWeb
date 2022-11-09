@@ -23,7 +23,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('campaigns.index') }}">Campañas</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('campaigns.show', $campaign) }}">Campaña</a></li>
                             <li class="breadcrumb-item active">{{$campaign->name}}</li>
                         </ol>
                     </div>

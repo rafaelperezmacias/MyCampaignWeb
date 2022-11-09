@@ -44500,6 +44500,11 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
   margin-top: -3px;
 }
 
+.description {
+    color: #6c757d;
+    margin-top: -3px;
+}
+
 .user-block.user-block-sm img {
   width: 1.875rem;
   height: 1.875rem;

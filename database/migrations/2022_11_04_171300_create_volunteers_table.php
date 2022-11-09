@@ -24,6 +24,7 @@ class CreateVolunteersTable extends Migration
 
             $table->foreignId('section_id')->constrained();
             $table->foreignId('sympathizer_id')->constrained();
+            $table->foreignId('campaign_id')->constrained();
 
             $table->timestamps();
             $table->softDeletes();

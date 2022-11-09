@@ -26,4 +26,9 @@ class Campaign extends Model
     public function sympathizers() {
         return $this->belongsToMany(Sympathizer::class);
     }
+
+    public function volunteers() {
+        return $this->hasMany(Volunteer::class);
+    }
+
 }

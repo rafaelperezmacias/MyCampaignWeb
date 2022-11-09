@@ -28,10 +28,22 @@ class HomeController extends Controller
         $firtsCampaigns = $currentAdministrator->campaigns
             ->take(8);
 
+        $campaing = null;
+
+        if ( isset($currentAdministrator->currentCampaign) ) {
+            $campaing = $currentAdministrator->currentCampaign
+                ->loadCount([
+                    'sympathizers',
+                    'administrators',
+                    'volunteers'
+                ]);
+        }
+
         return view('home')
             ->with([
                 'allCampaigns' => $allCampaigns,
-                'firtsCampaigns' => $firtsCampaigns
+                'firtsCampaigns' => $firtsCampaigns,
+                'campaign' => $campaing,
             ]);
     }
 
@@ -46,4 +58,5 @@ class HomeController extends Controller
                 'campaign' => $administrator->currentCampaign,
             ]);
     }
+
 }

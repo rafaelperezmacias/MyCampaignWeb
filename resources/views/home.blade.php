@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,10 +17,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap-icons/bootstrap-icons.css') }}">
-    <!-- Toastr -->
-    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
 </head>
-
 <body class="hold-transition layout-top-nav layout-navbar-fixed">
     <div class="wrapper">
         <!-- Navbar -->
@@ -30,12 +26,14 @@
                 <a href="../../index3.html" class="navbar-brand">
                     <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                         class="brand-image img-circle elevation-3" style="opacity: .8">
-                    <span class="brand-text font-weight-light">My Campaign</span>
+                    <span class="brand-text font-weight-dark fs-4">My Campaign</span>
                 </a>
-                <ul class="nav nav-pills p-2">
-                    <li class="nav-item"><a class="nav-link active" href="#tab_1"data-toggle="tab">Tab 1</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Tab 2</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">Tab 3</a></li>
+                <ul class="nav nav-pills p-2 ml-5 mr-5 w-100 nav-justified">
+                    <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab"
+                            id="nav_list">Campañas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab" id="nav_add">Nueva
+                            campaña</a></li>
                 </ul>
                 <!-- Right navbar links -->
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
@@ -68,135 +66,253 @@
         </nav>
         <div class="content-wrapper">
             <div class="container">
-                <section class="content-header">
+                <section class="content-header"></section>
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <!-- Custom Tabs -->
-                            <div class="card mt-3">
-                                <div class="card-header d-flex p-0">
+                            <div class="tab-content">
+                                <!-- Primera TAB (Campañas frecuentes) -->
+                                <div class="tab-pane active" id="tab_1">
+                                    <h1>Bienvenido!</h1>
+                                    @if (isset($campaign))
+                                        <h4>Campaña actual <span class="description fs-5">{{ $campaign->name }} -
+                                                {{ $campaign->party }}</span></h4>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-12">
+                                                <!-- small card -->
+                                                <div class="small-box bg-gray">
+                                                    <div class="inner">
+                                                        <h3>{{ $campaign->volunteers_count }}</h3>
 
-                                </div><!-- /.card-header -->
-                                <div class="card-body">
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="tab_1">
-                                            A wonderful serenity has taken possession of my entire soul,
-                                            like these sweet mornings of spring which I enjoy with my whole heart.
-                                            I am alone, and feel the charm of existence in this spot,
-                                            which was created for the bliss of souls like mine. I am so happy,
-                                            my dear friend, so absorbed in the exquisite sense of mere tranquil
-                                            existence,
-                                            that I neglect my talents. I should be incapable of drawing a single stroke
-                                            at the present moment; and yet I feel that I never was a greater artist than
-                                            now.
+                                                        <p>Voluntario(s)</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fas fa-shopping-cart"></i>
+                                                    </div>
+                                                    <a href="{{ route('volunteers.index') }}" class="small-box-footer">
+                                                        Ver detalles... <i class="fas fa-arrow-circle-right"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-12">
+                                                <!-- small card -->
+                                                <div class="small-box bg-success">
+                                                    <div class="inner">
+                                                        <h3>{{ $campaign->sympathizers_count }}</h3>
+
+                                                        <p>Simpatizante(s)</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="ion ion-stats-bars"></i>
+                                                    </div>
+                                                    <a href="{{ route('sympathizers.index') }}" class="small-box-footer">
+                                                        Ver detalles... <i class="fas fa-arrow-circle-right"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-12">
+                                                <!-- small card -->
+                                                <div class="small-box bg-warning">
+                                                    <div class="inner">
+                                                        <h3>{{ $campaign->administrators_count }}</h3>
+
+                                                        <p>Administradores(s)</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fas fa-user-plus"></i>
+                                                    </div>
+                                                    <a href="{{ route('administrators.index') }}" class="small-box-footer">
+                                                        Ver detalles... <i class="fas fa-arrow-circle-right"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <!-- /.tab-pane -->
-                                        <div class="tab-pane" id="tab_2">
-                                            The European languages are members of the same family. Their separate
-                                            existence is a myth.
-                                            For science, music, sport, etc, Europe uses the same vocabulary. The
-                                            languages only differ
-                                            in their grammar, their pronunciation and their most common words. Everyone
-                                            realizes why a
-                                            new common language would be desirable: one could refuse to pay expensive
-                                            translators. To
-                                            achieve this, it would be necessary to have uniform grammar, pronunciation
-                                            and more common
-                                            words. If several languages coalesce, the grammar of the resulting language
-                                            is more simple
-                                            and regular than that of the individual languages.
-                                        </div>
-                                        <!-- /.tab-pane -->
-                                        <div class="tab-pane" id="tab_3">
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                            Lorem Ipsum has been the industry's standard dummy text ever since the
-                                            1500s,
-                                            when an unknown printer took a galley of type and scrambled it to make a
-                                            type specimen book.
-                                            It has survived not only five centuries, but also the leap into electronic
-                                            typesetting,
-                                            remaining essentially unchanged. It was popularised in the 1960s with the
-                                            release of Letraset
-                                            sheets containing Lorem Ipsum passages, and more recently with desktop
-                                            publishing software
-                                            like Aldus PageMaker including versions of Lorem Ipsum.
-                                        </div>
-                                        <!-- /.tab-pane -->
+                                        <!-- /.row -->
+                                    @endif
+                                    <h1 class="mb-3">Frecuentes</h1>
+                                    <div class="row row-cols-1 row-cols-md-4 g-4">
+                                        @foreach ($firtsCampaigns as $campaign)
+                                            <div class="col">
+                                                <div class="card card-success h-90 elevation-2"
+                                                    id="card{{ $loop->index }}">
+                                                    <div class="card-header"></div>
+                                                    <div class="card-body">
+                                                        <p class="card-title font-weight-bold">{{ $campaign->name }}
+                                                        </p>
+                                                        <p class="card-text">{{ $campaign->party }}</p>
+                                                        <p class="card-text"> {{ $campaign->start_date }} -
+                                                            {{ $campaign->end_date }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <form action="{{ route('home.campaign') }}" method="POST"
+                                                    id="form{{ $loop->index }}">
+                                                    @csrf
+                                                    <input type="hidden" name="campaign_id"
+                                                        value="{{ $campaign->id }}">
+                                                </form>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    <!-- /.tab-content -->
-                                </div><!-- /.card-body -->
+                                </div>
+                                <!-- Sgunda TAB (Listado de campañas) -->
+                                <div class="tab-pane" id="tab_2">
+                                    <div class="row mb-2">
+                                        <div class="col-sm-6">
+                                            <h1>Listado de campañas</h1>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 text-right">
+                                            <a class="btn btn-outline-primary pl-5 pr-5" id="btn_add">Agregar
+                                                campaña</a>
+                                        </div>
+                                    </div>
+                                    <div class="card mt-4">
+                                        <div class="card-body">
+                                            <table class="table table table-bordered table-striped" id="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th>Partido Político</th>
+                                                        <th>Periodo</th>
+                                                        <th>Accions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($allCampaigns as $campaign)
+                                                        <tr>
+                                                            <td> {{ $campaign->name }} </td>
+                                                            <td> {{ $campaign->party }} </td>
+                                                            <td> {{ $campaign->start_date }} -
+                                                                {{ $campaign->end_date }} </td>
+                                                            <td class="text-center">
+                                                                <form action="{{ route('home.campaign') }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="campaign_id"
+                                                                        value="{{ $campaign->id }}">
+                                                                    <button type="submit"
+                                                                        class="btn btn-outline-success btn-sm">
+                                                                        Acceder <i
+                                                                            class="fa fa-thin fa-arrow-right pl-2"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tercera TAB (Formulario de campañas) -->
+                                <div class="tab-pane" id="tab_3">
+                                    <div class="card card-primary mt-5 elevation-3">
+                                        <div class="card-header">
+                                            <div class="row fs-3 d-flex align-items-center">
+                                                <h3 class="ml-3">Agregar nueva campaña</h3>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <form action=" {{ route('campaigns.store') }}" method="POST">
+                                                @csrf
+                                                <h6 class="d-flex @error('name') text-danger @enderror">Nombre</h6>
+                                                <div class="form-group ">
+                                                    <input type="text" name="name" id="name"
+                                                        class="form-control @error('name') is-invalid @enderror"
+                                                        placeholder="Ingrese el nombre de la campaña"
+                                                        value="{{ old('name') ?? '' }}">
+                                                    @error('name')
+                                                        <div class="invalid-feedback">
+                                                            <i class="bx bx-radio-circle"></i>
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <h6 class="d-flex @error('party') text-danger @enderror">Partido
+                                                    político</h6>
+                                                <div class="form-group ">
+                                                    <input type="text" name="party" id="party"
+                                                        class="form-control @error('party') is-invalid @enderror"
+                                                        placeholder="Ingrese el nombre del partido político"
+                                                        value="{{ old('party') ?? '' }}">
+                                                    @error('party')
+                                                        <div class="invalid-feedback">
+                                                            <i class="bx bx-radio-circle"></i>
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <h6 class="d-flex @error('start_date') text-danger @enderror">
+                                                            Fecha de inicio de la campaña</h6>
+                                                        <div class="form-group">
+                                                            <input type="date" name="start_date" id="start_date"
+                                                                class="form-control @error('start_date') is-invalid @enderror"
+                                                                placeholder="Ingrese el nombre"
+                                                                value="{{ old('start_date') ?? '' }}">
+                                                            @error('start_date')
+                                                                <div class="invalid-feedback">
+                                                                    <i class="bx bx-radio-circle"></i>
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <h6 class="d-flex @error('end_date') text-danger @enderror">
+                                                            Fecha de fin de la campaña</h6>
+                                                        <div class="form-group">
+                                                            <input type="date" name="end_date" id="end_date"
+                                                                class="form-control @error('end_date') is-invalid @enderror"
+                                                                placeholder="Ingrese los apellidos"
+                                                                value="{{ old('end_date') ?? '' }}">
+                                                            @error('end_date')
+                                                                <div class="invalid-feedback">
+                                                                    <i class="bx bx-radio-circle"></i>
+                                                                    {{ $message }}
+                                                                </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h6 class="d-flex @error('description') text-danger @enderror">
+                                                    Descrpción (Opcional)</h6>
+                                                <div class="form-group">
+                                                    <textarea class="form-control  @error('description') is-invalid @enderror" name="description" id="description"
+                                                        rows="7" placeholder="Ingrese una breve descripcion de su campaña">{{ old('description') }}</textarea>
+                                                    @error('description')
+                                                        <div class="invalid-feedback">
+                                                            <i class="bx bx-radio-circle"></i>
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-3"></div>
+                                                    <div class="col-6">
+                                                        <button type="submit"
+                                                            class="btn btn-outline-primary btn-block">
+                                                            <strong>
+                                                                GUARDAR
+                                                            </strong>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-3"></div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
                             </div>
-                            <!-- ./card -->
+                            <!-- /.tab-content -->
                         </div>
                         <!-- /.col -->
                     </div>
-                </section>
-                <div class="container-fluid">
-                    <h1 class="mb-3">Frecuentes</h1>
-                    <div class="row row-cols-1 row-cols-md-4 g-4">
-                        @foreach ($firtsCampaigns as $campaign)
-                            <div class="col">
-                                <div class="card card-success h-90 elevation-2" id="card{{ $loop->index }}">
-                                    <div class="card-header"></div>
-                                    <div class="card-body">
-                                        <p class="card-title font-weight-bold">{{ $campaign->name }}</p>
-                                        <p class="card-text">{{ $campaign->party }}</p>
-                                        <p class="card-text"> {{ $campaign->start_date }} - {{ $campaign->end_date }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <form action="{{ route('home.campaign') }}" method="POST"
-                                    id="form{{ $loop->index }}">
-                                    @csrf
-                                    <input type="hidden" name="campaign_id" value="{{ $campaign->id }}">
-                                </form>
-                            </div>
-                        @endforeach
-                    </div>
                 </div>
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Listado de campañas</h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 text-right">
-                            <h1><a href="{{ route('campaigns.create') }}" type="reset"
-                                    class="btn btn-outline-primary align-bottom pl-5 pr-5">Agregar campaña</a></h1>
-                        </div>
-                    </div>
-                </div>
-                <section class="content">
-                    <div class="card mr-2 ml-2">
-                        <div class="card-body">
-                            <table class="table table table-bordered table-striped" id="table">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Partido Político</th>
-                                        <th>Periodo</th>
-                                        <th>Accions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($allCampaigns as $campaign)
-                                        <tr>
-                                            <td> {{ $campaign->name }} </td>
-                                            <td> {{ $campaign->party }} </td>
-                                            <td> {{ $campaign->start_date }} - {{ $campaign->end_date }} </td>
-                                            <td>
-                                                <a href="{{ route('campaigns.show', $campaign) }}"
-                                                    class="btn-sm btn-outline-success icon icon-left pt-2">
-                                                    <i class="fas fa-search"></i> Detalles
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
             </div>
         </div>
     </div>
@@ -220,10 +336,10 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
-<!-- SweetAlert2 -->
-<link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-<!-- SweetAlert2 -->
-<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <!-- SweetAlert2 -->
+    <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
 
 @if ( session()->has('mensaje') )
     <script>
@@ -263,7 +379,12 @@
             });
 
         }
+        document.getElementById('btn_add').addEventListener('click', (e) => {
+            document.getElementById('nav_add').className = 'nav-link active';
+            document.getElementById('nav_list').className = 'nav-link';
+            document.getElementById('tab_3').className = 'tab-pane active';
+            document.getElementById('tab_2').className = 'tab-pane';
+        });
     </script>
 </body>
-
 </html>

@@ -56,6 +56,8 @@ class VolunteerSeeder extends Seeder
             'name' => 'Moy'
         ]);
 
+        $sympathizer->campaigns()->attach(1);
+
         $user = User::create([
             'email' => 'simpatizante@simpatizante.com',
             'password' => 'password',
@@ -73,6 +75,7 @@ class VolunteerSeeder extends Seeder
             'phone' => '11223344',
             'section_id' => $section->id,
             'sympathizer_id' => $sympathizer->id,
+            'campaign_id' => 1
         ]);
 
         $address = Address::create([

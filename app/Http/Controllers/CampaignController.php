@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Administrator;
 use App\Models\Campaign;
 use Illuminate\Http\Request;
 
@@ -51,11 +52,16 @@ class CampaignController extends Controller
             'end_date'       => ['gt:0'],
             'description'    => ['gt:0'],
         ]); */
+        $administrator = Administrator::get()->first();
+
         $campaign = Campaign::create( $request->all() );
 
-        $campaign->administrators()->attach(1);
+        $campaign->administrators()->attach($administrator->id);
 
-        return redirect()->route('campaigns.index');
+        $administrator->current_campaign = $campaign->id;
+        $administrator->save();
+
+        return redirect()->route('campaigns.show', [$campaign]);
     }
 
     /**
