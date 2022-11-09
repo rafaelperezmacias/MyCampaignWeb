@@ -39,7 +39,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-12 text-right">
+                                    <div class="col-6 text-left">
+                                        <h1>
+                                            <a>
+                                            <form action="{{ route('administrators.destroy', [$administrator]) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-danger align-bottom pl-5 pr-5">Borrar</button>
+                                            </form>
+                                            </a>
+                                        </h1>
+                                    </div>
+                                    <div class="col-6 text-right">
                                         <h1>
                                             <a href="{{route('administrators.edit', [$administrator])}}"
                                                 class="btn btn-outline-primary align-bottom pl-5 pr-5">
@@ -48,24 +59,24 @@
                                         </h1>
                                     </div>
                                 </div>
-                                <h6 class="d-flex @error('name') text-danger @enderror">Nombre</h6>
-                                <div class="form-group ">
+                                <h6 class="d-flex">Nombre</h6>
+                                <div class="form-group">
                                     <input type="text" name="name" id="name"
-                                        class="form-control @error('name') is-invalid @enderror"
+                                        class="form-control"
                                         placeholder="Ingrese el nombre completo del nuevo administrador" value="{{ $administrator->name }}"
                                         disabled>
                                 </div>
-                                <h6 class="d-flex @error('email') text-danger @enderror">Correo electrónico</h6>
-                                <div class="form-group ">
+                                <h6 class="d-flex">Correo electrónico</h6>
+                                <div class="form-group">
                                     <input type="email" name="email" id="email"
-                                        class="form-control @error('email') is-invalid @enderror"
+                                        class="form-control"
                                         placeholder="Ingrese el correo electrónico del nuevo administrador" value="{{ $administrator->user->email }}"
                                         disabled>
                                 </div>
-                                <h6 class="d-flex @error('password') text-danger @enderror">Contraseña</h6>
+                                <h6 class="d-flex">Contraseña</h6>
                                 <div class="form-group ">
                                     <input type="password" name="password" id="password"
-                                        class="form-control @error('password') is-invalid @enderror"
+                                        class="form-control"
                                         placeholder="Ingrese la contraseña de acceso del nuevo administrador" value="{{ $administrator->user->password }}"
                                         disabled>
                                 </div>

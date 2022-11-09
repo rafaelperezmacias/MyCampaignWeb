@@ -155,6 +155,7 @@ class AdministratorController extends Controller
      */
     public function destroy(Administrator $administrator)
     {
-        //
+        $administrator->delete();
+        return redirect()->route('administrators.index')->with(['mensaje' => 'Administrador eliminado', 'alert-type' => 'warning']);
     }
 }

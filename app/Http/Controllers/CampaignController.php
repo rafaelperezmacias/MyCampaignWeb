@@ -90,7 +90,7 @@ class CampaignController extends Controller
     public function update(Request $request, Campaign $campaign)
     {
         Campaign::where('id', $campaign->id)->update($request->except('_token', '_method'));
-        return redirect()->route('campaigns.show', [$campaign]);
+        return redirect()->route('home.index', [$campaign])->with(['mensaje' => 'Campaña actualizada', 'alert-type' => 'success']);;
     }
 
     /**
@@ -101,6 +101,7 @@ class CampaignController extends Controller
      */
     public function destroy(Campaign $campaign)
     {
-        //
+        $campaign->delete();
+        return redirect()->route('home.index')->with(['mensaje' => 'Campaña eliminada', 'alert-type' => 'warning']);
     }
 }

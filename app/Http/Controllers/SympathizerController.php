@@ -76,9 +76,9 @@ class SympathizerController extends Controller
             'userable_type' => 'App\Models\Sympathizer'
         ]);
 
-        $sympathizer->campaigns()->attach(1);
-
         $currentAdministrator = Administrator::get()->first();
+
+        $sympathizer->campaigns()->attach($currentAdministrator->currentCampaign->id);
 
         return redirect()->route('sympathizers.index');
     }
@@ -91,7 +91,7 @@ class SympathizerController extends Controller
      */
     public function show(Sympathizer $sympathizer)
     {
-        //
+        return view('sympathizers.show', compact('sympathizer'));
     }
 
     /**
@@ -102,7 +102,7 @@ class SympathizerController extends Controller
      */
     public function edit(Sympathizer $sympathizer)
     {
-        //
+        return view('sympathizers.form', compact('sympathizer'));
     }
 
     /**
@@ -114,7 +114,18 @@ class SympathizerController extends Controller
      */
     public function update(Request $request, Sympathizer $sympathizer)
     {
-        //
+        Sympathizer::where('id', $sympathizer->id)->update($request->only('name'));
+        User::where('id', $sympathizer->user->id)->update($request->only('email', 'password'));
+
+        // Campaña actual
+        // TODO: Cuando se implemente la autentificacion cambiar este code
+        $administrator = Administrator::get()->first();
+
+        return redirect()->route('sympathizers.show', [$sympathizer])
+        ->with([
+            'mensaje' => 'Simpatizante actualizado', 'alert-type' => 'success',
+            'campaign' => $administrator->currentCampaign,
+        ]);
     }
 
     /**
@@ -125,6 +136,7 @@ class SympathizerController extends Controller
      */
     public function destroy(Sympathizer $sympathizer)
     {
-        //
+        $sympathizer->delete();
+        return redirect()->route('sympathizers.index')->with(['mensaje' => 'Simpatizante eliminado', 'alert-type' => 'warning']);
     }
 }

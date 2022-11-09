@@ -44,6 +44,7 @@
                                     </div>
                                 </div>
                                 <form action=" {{ route('volunteers.store') }}" method="POST">
+                                    <h4 class="d-flex text-primary">Datos personales</h4>
                                     <h6 class="d-flex">Nombre(s)</h6>
                                     <div class="form-group ">
                                         <input type="text" name="name" id="name"
@@ -75,6 +76,8 @@
                                             placeholder="Ingrese la fecha de nacimiento"
                                             value="{{$volunteer->auxVolunteer->birthdate}}" disabled="">
                                     </div>
+                                    <br>
+                                    <h4 class="d-flex text-primary">Domicilio</h4>
                                     <h6 class="d-flex">Calle(s)</h6>
                                     <div class="form-group ">
                                         <input type="text" name="street" id="street"
@@ -123,6 +126,8 @@
                                             class="form-control"
                                             placeholder="Ingrese la calle" value="{{$volunteer->auxVolunteer->elector_key}}" disabled="">
                                     </div>
+                                    <br>
+                                    <h4 class="d-flex text-primary">Contacto</h4>
                                     <h6 class="d-flex">Correo electrónico</h6>
                                     <div class="form-group ">
                                         <input type="text" name="email" id="email"
@@ -135,6 +140,8 @@
                                             class="form-control"
                                             placeholder="Ingrese su teléfono" value="{{$volunteer->phone}}" disabled="">
                                     </div>
+                                    <br>
+                                    <h4 class="d-flex text-primary">Identificación de la sección</h4>
                                     <h6 class="d-flex">Section</h6>
                                     <div class="form-group ">
                                         <input type="text" name="section" id="section"

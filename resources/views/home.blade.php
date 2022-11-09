@@ -219,6 +219,23 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<!-- SweetAlert2 -->
+<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+
+@if ( session()->has('mensaje') )
+    <script>
+        window.onload = function() {
+        Swal.fire({
+            icon: "{{session('alert-type')}}",
+            title: "{{session('mensaje')}}",
+        });
+    }
+    </script>
+@endif
+
     <script>
         $(function() {
             $("#table").DataTable({

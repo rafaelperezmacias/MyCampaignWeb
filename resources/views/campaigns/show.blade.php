@@ -39,82 +39,63 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-12 text-right">
+                                    <div class="col-6 text-left">
+                                        <h1>
+                                            <a>
+                                            <form action="{{ route('campaigns.destroy', [$campaign]) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-outline-danger align-bottom pl-5 pr-5">Borrar</button>
+                                            </form>
+                                            </a>
+                                        </h1>
+                                    </div>
+                                    <div class="col-6 text-right">
                                         <h1><a href="{{route('campaigns.edit', [$campaign->id])}}" type="reset" class="btn btn-outline-primary align-bottom pl-5 pr-5">Editar</a></h1>
                                     </div>
                                 </div>
                                 <form action=" {{ route('campaigns.store') }}" method="POST">
                                     @csrf
-                                    <h6 class="d-flex @error('name') text-danger @enderror">Nombre</h6>
+                                    <h6 class="d-flex">Nombre</h6>
                                     <div class="form-group ">
                                         <input type="text" name="name" id="name"
-                                            class="form-control @error('name') is-invalid @enderror"
+                                            class="form-control"
                                             placeholder="Ingrese el nombre de la campaña" value="{{$campaign->name}}" disabled="">
-                                        @error('name')
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
-                                    <h6 class="d-flex @error('party') text-danger @enderror">Partido político</h6>
+                                    <h6 class="d-flex">Partido político</h6>
                                     <div class="form-group ">
                                         <input type="text" name="party" id="party"
-                                            class="form-control @error('party') is-invalid @enderror"
+                                            class="form-control"
                                             placeholder="Ingrese el nombre del partido político"
                                             value="{{$campaign->party}}" disabled="">
-                                        @error('party')
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h6 class="d-flex @error('start_date') text-danger @enderror">Fecha de inicio de
+                                            <h6 class="d-flex">Fecha de inicio de
                                                 la
                                                 campaña</h6>
                                             <div class="form-group">
                                                 <input type="date" name="start_date" id="start_date"
-                                                    class="form-control @error('start_date') is-invalid @enderror"
+                                                    class="form-control"
                                                     placeholder="Ingrese el nombre" value="{{$campaign->start_date}}" disabled="">
-                                                @error('start_date')
-                                                    <div class="invalid-feedback">
-                                                        <i class="bx bx-radio-circle"></i>
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <h6 class="d-flex @error('end_date') text-danger @enderror">Fecha de fin de la
+                                            <h6 class="d-flex">Fecha de fin de la
                                                 campaña</h6>
                                             <div class="form-group">
                                                 <input type="date" name="end_date" id="end_date"
-                                                    class="form-control @error('end_date') is-invalid @enderror"
+                                                    class="form-control"
                                                     placeholder="Ingrese los apellidos" value="{{$campaign->end_date}}" disabled="">
-                                                @error('end_date')
-                                                    <div class="invalid-feedback">
-                                                        <i class="bx bx-radio-circle"></i>
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
                                             </div>
                                         </div>
                                     </div>
-                                    <h6 class="d-flex @error('description') text-danger @enderror">Descrpción
+                                    <h6 class="d-flex">Descrpción
                                         (Opcional)
                                     </h6>
                                     <div class="form-group">
-                                        <textarea class="form-control  @error('description') is-invalid @enderror" name="description" id="description"
+                                        <textarea class="form-control" name="description" id="description"
                                             rows="7" placeholder="Ingrese una breve descripcion de su campaña" disabled="">{{$campaign->description}}</textarea>
-                                        @error('description')
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
                                     </div>
                                 </form>
                             </div>
