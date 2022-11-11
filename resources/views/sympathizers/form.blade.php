@@ -82,18 +82,37 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <h6 class="d-flex @error('password') text-danger @enderror">Contraseña</h6>
-                                    <div class="form-group ">
-                                        <input type="password" name="password" id="password"
-                                            class="form-control @error('password') is-invalid @enderror"
-                                            placeholder="Ingrese la contraseña de acceso del nuevo simpatizante" value="{{ old('password') ?? ($sympathizer->user->password ?? '') }}">
-                                        @error('password')
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
+
+                                    @if ( !isset($sympathizer) )
+                                        <h6 class="d-flex @error('password') text-danger @enderror">Contraseña</h6>
+                                        <div class="form-group ">
+                                            <input type="password" name="password" id="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                placeholder="Ingrese la contraseña de acceso del nuevo simpatizante" value="{{ old('password') ?? ($sympathizer->user->password ?? '') }}">
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    <i class="bx bx-radio-circle"></i>
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    @endif
+
+                                    @if ( isset($sympathizer) )
+                                        <div class="form-group">
+                                            <h6 class="d-flex">Autorizado</h6>
+                                            <select class="form-control" name="authorized" id="authorized">
+                                            @if ($sympathizer->authorized)
+                                                <option value="1">Sí</option>
+                                                <option value="0">No</option>
+                                            @else
+                                                <option value="0">No</option>
+                                                <option value="1">Sí</option>
+                                            @endif
+                                            </select>
+                                        </div>
+                                    @endif
+
                                     <div class="row">
                                         <div class="col-3"></div>
                                         <div class="col-6">

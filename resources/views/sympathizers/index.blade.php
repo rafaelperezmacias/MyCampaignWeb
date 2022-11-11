@@ -54,12 +54,27 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&d
                     <tbody>
                         @foreach ($sympathizers as $sympathizer)
                         <tr>
-                            <td> {{ $sympathizer->name }} </td>
+                            <td>
+                                {{ $sympathizer->name }}
+                                @if ($sympathizer->authorized)
+                                    <small class="badge badge-primary"><i class="fas fa-check"></i> Autorizado </small>
+                                @else
+                                    <small class="badge badge-secondary"><i class="fas fa-times"></i> Sin autorizar </small>
+                                @endif
+
+                            </td>
                             <td> {{ $sympathizer->user->email }} </td>
                             <td>
-                                <a href="{{ route('sympathizers.show', $sympathizer) }}" class="btn-sm btn-outline-success icon icon-left pt-2">
-                                    <i class="fas fa-search"></i> Detalles
-                                </a>
+                                <form action="{{ route('sympathizers.destroy', [$sympathizer]) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <a href="{{ route('sympathizers.show', $sympathizer) }}" class="btn-sm btn-outline-success icon icon-left pt-2">
+                                        <i class="fas fa-search"></i> Detalles
+                                    </a>
+                                    <button type="submit"  class="btn-sm btn-outline-danger icon icon-left pt-2 border-0">
+                                        <i class="fas fa-eraser"></i> Borrar
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

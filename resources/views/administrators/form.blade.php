@@ -82,18 +82,20 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <h6 class="d-flex @error('password') text-danger @enderror">Contraseña</h6>
-                                    <div class="form-group ">
-                                        <input type="password" name="password" id="password"
-                                            class="form-control @error('password') is-invalid @enderror"
-                                            placeholder="Ingrese la contraseña de acceso del nuevo administrador" value="{{ old('password') ?? ($administrator->user->password ?? '') }}">
-                                        @error('password')
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
+                                    @if ( !isset($administrator) )
+                                        <h6 class="d-flex @error('password') text-danger @enderror">Contraseña</h6>
+                                        <div class="form-group ">
+                                            <input type="password" name="password" id="password"
+                                                class="form-control @error('password') is-invalid @enderror"
+                                                placeholder="Ingrese la contraseña de acceso del nuevo administrador" value="{{ old('password') ?? ($administrator->user->password ?? '') }}">
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    <i class="bx bx-radio-circle"></i>
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    @endif
                                     <div class="row">
                                         <div class="col-3"></div>
                                         <div class="col-6">

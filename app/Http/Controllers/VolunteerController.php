@@ -98,6 +98,8 @@ class VolunteerController extends Controller
      */
     public function destroy(Volunteer $volunteer)
     {
-        //
+        $volunteer->delete();
+        return redirect()->route('volunteers.index')->with(['mensaje' => 'Voluntario eliminado', 'alert-type' => 'success']);
+
     }
 }

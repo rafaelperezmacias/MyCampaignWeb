@@ -56,14 +56,44 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&d
                     <tbody>
                         @foreach ($volunteers as $volunteer)
                         <tr>
-                            <td> {{ $volunteer->name }} </td>
+                            <td>
+                                {{ $volunteer->name }}
+                                @switch($volunteer->auxVolunteer->type)
+                                    @case(0)
+                                        <small class="badge badge-success"><i class="fas fa-user"></i> RG </small>
+                                        @break
+
+                                    @case(1)
+                                        <small class="badge badge-primary"><i class="fas fa-person-booth"></i> RC </small>
+                                        @break
+
+                                    @case(2)
+                                        <small class="badge badge-info"><i class="fas fa-question"></i> Otro </small>
+                                        @break
+
+                                    @default
+                                 @endswitch
+                            </td>
                             <td> {{ $volunteer->email }} </td>
                             <td> {{ $volunteer->phone }} </td>
-                            <td> {{ $volunteer->section_id }} </td>
+                            <td> {{ $volunteer->section_id }}
+                                @if ($volunteer->auxVolunteer->local_voting_booth)
+                                    <small class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> Defensa local </small>
+                                @endif
+
+                            </td>
                             <td>
-                                <a href="{{ route('volunteers.show', $volunteer) }}" class="btn-sm btn-outline-success icon icon-left pt-2">
-                                    <i class="fas fa-search"></i> Detalles
-                                </a>
+                                <form action="{{ route('volunteers.destroy', [$volunteer]) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <a href="{{ route('volunteers.show', $volunteer) }}" class="btn-sm btn-outline-success icon icon-left pt-2">
+                                        <i class="fas fa-search"></i> Detalles
+                                    </a>
+                                    <button type="submit"  class="btn-sm btn-outline-danger icon icon-left pt-2 border-0">
+                                        <i class="fas fa-eraser"></i> Borrar
+                                    </button>
+
+                                </form>
                             </td>
                         </tr>
                         @endforeach

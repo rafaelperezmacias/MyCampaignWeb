@@ -23,7 +23,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home.index') }}">Inicio</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('volunteers.index') }}">Campañas</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('volunteers.index') }}">Voluntarios</a></li>
                             <li class="breadcrumb-item active">{{$volunteer->name}}</li>
                         </ol>
                     </div>
@@ -38,11 +38,6 @@
                     <div class="col-lg-7">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 text-right">
-                                        <h1><a href="{{route('volunteers.edit', [$volunteer->id])}}" type="reset" class="btn btn-outline-primary align-bottom pl-5 pr-5">Editar</a></h1>
-                                    </div>
-                                </div>
                                 <form action=" {{ route('volunteers.store') }}" method="POST">
                                     <h4 class="d-flex text-primary">Datos personales</h4>
                                     <h6 class="d-flex">Nombre(s)</h6>

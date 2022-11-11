@@ -63,8 +63,7 @@
                                 <div class="form-group">
                                     <input type="text" name="name" id="name"
                                         class="form-control"
-                                        placeholder="Ingrese el nombre completo del nuevo simpatizante" value="{{ $sympathizer->name }}"
-                                        disabled>
+                                        placeholder="Ingrese el nombre completo del nuevo simpatizante" value="{{ $sympathizer->name }}"disabled>
                                 </div>
                                 <h6 class="d-flex">Correo electrónico</h6>
                                 <div class="form-group">
@@ -80,6 +79,71 @@
                                         placeholder="Ingrese la contraseña de acceso del nuevo simpatizante" value="{{ $sympathizer->user->password }}"
                                         disabled>
                                 </div>
+                                @if ($sympathizer->authorized)
+                                    <small class="badge badge-primary"><i class="fas fa-check"></i> Autorizado </small>
+                                @else
+                                    <small class="badge badge-secondary"><i class="fas fa-times"></i> Sin autorizar </small>
+                                @endif
+
+                                <!-- Volunteers table -->
+                                <br><br><br>
+                                <h4 class="d-flex text-primary">Voluntarios registrados ( {{$sympathizer->volunteers->count() }} ) </h4>
+                                <table class="table table table-bordered table-striped" id="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Correo electrónico</th>
+                                            <th>Teléfono</th>
+                                            <th>Sección</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($sympathizer->volunteers as $volunteer)
+                                        <tr>
+                                            <td>
+                                                {{ $volunteer->name }}
+                                                @switch($volunteer->auxVolunteer->type)
+                                                    @case(0)
+                                                        <small class="badge badge-success"><i class="fas fa-user"></i> RG </small>
+                                                        @break
+
+                                                    @case(1)
+                                                        <small class="badge badge-primary"><i class="fas fa-person-booth"></i> RC </small>
+                                                        @break
+
+                                                    @case(2)
+                                                        <small class="badge badge-info"><i class="fas fa-question"></i> Otro </small>
+                                                        @break
+
+                                                    @default
+                                                 @endswitch
+                                            </td>
+                                            <td> {{ $volunteer->email }} </td>
+                                            <td> {{ $volunteer->phone }} </td>
+                                            <td> {{ $volunteer->section_id }}
+                                                @if ($volunteer->auxVolunteer->local_voting_booth)
+                                                    <small class="badge badge-primary"><i class="fas fa-map-marker-alt"></i> Defensa local </small>
+                                                @endif
+
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('volunteers.destroy', [$volunteer]) }}" method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <a href="{{ route('volunteers.show', $volunteer) }}" class="btn-sm btn-outline-success icon icon-left pt-2">
+                                                        <i class="fas fa-search"></i> Detalles
+                                                    </a>
+                                                    <button type="submit"  class="btn-sm btn-outline-danger icon icon-left pt-2 border-0">
+                                                        <i class="fas fa-eraser"></i> Borrar
+                                                    </button>
+
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

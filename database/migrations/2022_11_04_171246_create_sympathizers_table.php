@@ -17,6 +17,7 @@ class CreateSympathizersTable extends Migration
             $table->id();
 
             $table->string('name', 120);
+            $table->boolean('authorized');
 
             $table->timestamps();
             $table->softDeletes();

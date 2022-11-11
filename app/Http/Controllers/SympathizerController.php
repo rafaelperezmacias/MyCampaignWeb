@@ -114,7 +114,7 @@ class SympathizerController extends Controller
      */
     public function update(Request $request, Sympathizer $sympathizer)
     {
-        Sympathizer::where('id', $sympathizer->id)->update($request->only('name'));
+        Sympathizer::where('id', $sympathizer->id)->update($request->only('name', 'authorized'));
         User::where('id', $sympathizer->user->id)->update($request->only('email', 'password'));
 
         // Campaña actual

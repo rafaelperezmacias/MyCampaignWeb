@@ -53,7 +53,8 @@ class VolunteerSeeder extends Seeder
         ]);
 
         $sympathizer = Sympathizer::create([
-            'name' => 'Moy'
+            'name' => 'Moy',
+            'authorized' => 1
         ]);
 
         $sympathizer->campaigns()->attach(1);
