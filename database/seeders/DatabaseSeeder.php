@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             AdministratorSeeder::class,
             CampaignSeeder::class,
             AdministratorCampaignSeeder::class,
-            VolunteerSeeder::class,
+            // VolunteerSeeder::class,
         ]);
     }
 }
