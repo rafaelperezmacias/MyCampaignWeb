@@ -221,6 +221,45 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <br>
+                                    <h4 class="d-flex text-primary">Otros datos</h4>
+                                    <h6 class="d-flex">¿Va a cuidar la casilla de la sección donde vive?</h6>
+                                    <div class="form-group ">
+                                        <input type="text" name="local_voting_booth" id="local_voting_booth"
+                                            class="form-control"
+                                            value="@if ($volunteer->auxVolunteer->local_voting_booth) Sí @else No @endif" disabled="">
+                                    </div>
+                                    <h6 class="d-flex">Tipo de representante</h6>
+                                    <div class="form-group">
+                                        <input type="text" name="type" id="type"
+                                            class="form-control"
+                                            value="@switch($volunteer->auxVolunteer->type) @case(0) RG @break @case(1) RC @break @case(2) Otro @break @endswitch" disabled="">
+                                    </div>
+                                    <h6 class="d-flex">Notas</h6>
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="notes" id="notes"
+                                            rows="7" placeholder="" disabled="">{{$volunteer->auxVolunteer->notes}}</textarea>
+                                    </div>
+
+                                    <br>
+                                    <h4 class="d-flex text-primary">Fotografías</h4>
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-6">
+                                            <div class="card">
+                                                <img class="card-img-top" src="https://centralelectoral.ine.mx/wp-content/uploads/2020/02/qr-1.jpg" alt="Card image cap">
+
+                                              </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-6">
+                                            <div class="card">
+                                                <img class="card-img-top" src="https://centralelectoral.ine.mx/wp-content/uploads/2020/02/qr-1.jpg" alt="Card image cap">
+
+                                              </div>
+                                        </div>
+                                      </div>
+
+
                                 </form>
                             </div>
                         </div>
@@ -236,10 +275,13 @@
 @endsection
 
 @section('js')
+
+
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('js/adminlte.js') }}"></script>
+
 @endsection
