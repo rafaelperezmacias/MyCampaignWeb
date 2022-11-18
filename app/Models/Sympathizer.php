@@ -12,7 +12,8 @@ class Sympathizer extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name'
+        'name',
+        'authorized'
     ];
 
     public function user() {

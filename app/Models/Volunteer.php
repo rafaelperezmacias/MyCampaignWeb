@@ -16,7 +16,10 @@ class Volunteer extends Model
         'fathers_lastname',
         'mothers_lastname',
         'email',
-        'phone'
+        'phone',
+        'section_id',
+        'sympathizer_id',
+        'campaign_id',
     ];
 
     public function address() {

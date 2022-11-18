@@ -64,7 +64,8 @@ class SympathizerController extends Controller
         //
 
         $sympathizer = Sympathizer::create([
-            'name' => $request->name
+            'name' => $request->name,
+            'authorized' => false,
         ]);
 
         $user = User::create([
