@@ -239,7 +239,7 @@
                                     <h6 class="d-flex">Notas</h6>
                                     <div class="form-group">
                                         <textarea class="form-control" name="notes" id="notes"
-                                            rows="7" placeholder="" disabled="">{{$volunteer->auxVolunteer->notes}}</textarea>
+                                            rows="7" placeholder="" disabled=""> {{ $volunteer->auxVolunteer->notes }} </textarea>
                                     </div>
 
                                     <br>
@@ -247,13 +247,13 @@
                                     <div class="row">
                                         <div class="col-md-12 col-lg-6">
                                             <div class="card">
-                                                <img class="card-img-top" src="https://centralelectoral.ine.mx/wp-content/uploads/2020/02/qr-1.jpg" alt="Card image cap">
+                                                <img class="card-img-top" src="{{ url($volunteer->auxVolunteer->image_path_ine) }}" alt="Card image cap">
 
                                               </div>
                                         </div>
                                         <div class="col-md-12 col-lg-6">
                                             <div class="card">
-                                                <img class="card-img-top" src="https://centralelectoral.ine.mx/wp-content/uploads/2020/02/qr-1.jpg" alt="Card image cap">
+                                                <img class="card-img-top" src="{{ url($volunteer->auxVolunteer->image_path_firm) }}" alt="Card image cap">
 
                                               </div>
                                         </div>

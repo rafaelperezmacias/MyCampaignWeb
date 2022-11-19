@@ -20,7 +20,7 @@ class AuxVolunteer extends Model
         'type',
         'elector_key',
         'local_voting_booth',
-        'volunteer_id'
+        'volunteer_id',
     ];
 
     public function volunteer() {

@@ -16,6 +16,7 @@ class CreateSectionsTable extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->string('section', 10);
+            $table->boolean('new')->nullable();
 
             $table->foreignId('state_id')->constrained();
             $table->foreignId('municipality_id')->constrained();

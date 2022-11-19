@@ -13,6 +13,11 @@ class Section extends Model
 
     protected $fillable = [
         'section',
+        'new',
+        'state_id',
+        'municipality_id',
+        'federal_district_id',
+        'local_district_id',
     ];
 
     public function state() {

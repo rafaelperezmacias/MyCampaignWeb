@@ -16,7 +16,8 @@ class Address extends Model
         'external_number',
         'internal_number',
         'suburb',
-        'zipcode'
+        'zipcode',
+        'volunteer_id'
     ];
 
     public function volunteer() {

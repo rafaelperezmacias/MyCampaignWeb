@@ -12,6 +12,9 @@ use App\Models\State;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ApiMobileController extends Controller
 {
@@ -29,7 +32,9 @@ class ApiMobileController extends Controller
         $municipalities = Municipality::whereHas('section', function (Builder $query) {
             $query->where('state_id', '=', 14);
         })->get();
-        $sections = Section::whereRelation('state', 'state_id', 14)->get();
+        $sections = Section::whereRelation('state', 'state_id', 14)
+                        ->where('new', null)
+                        ->get();
         $states = State::all();
 
         return response()->json([
@@ -48,12 +53,15 @@ class ApiMobileController extends Controller
 
     public function volunteer(Request $request) {
         $newVolunteer = $request->input('volunteer');
+        $newBirthdate = $request->input('volunteer.birthdate');
         $newSection = $request->input('volunteer.section');
         $newAddress = $request->input('volunteer.address');
         $newState = $request->input('volunteer.section.state');
         $newMunicipality = $request->input('volunteer.section.municipality');
         $newLocalDistrict = $request->input('volunteer.section.localDistrict');
         $newFederalDistrict = $request->input('volunteer.section.federalDistrict');
+        $campaign = $request->input('campaign');
+        $sympathizer = $request->input('sympathizer');
 
         // Estado
         $state = State::where('id', $newState['id'])->first();
@@ -157,6 +165,7 @@ class ApiMobileController extends Controller
         $sectionError = null;
         if ( $newSection['id'] == 0 ) {
             $section = Section::where('section', $newSection['section'])
+                        ->where('new', null)
                         ->whereRelation('state', 'id', $newState['id'])
                         ->with(['state','municipality','localDistrict','federalDistrict'])
                         ->first();
@@ -172,6 +181,7 @@ class ApiMobileController extends Controller
                             ->whereRelation('municipality', 'id', $newMunicipality['id'])
                             ->whereRelation('localDistrict', 'id', $newLocalDistrict['id'])
                             ->whereRelation('federalDistrict', 'id', $newFederalDistrict['id'])
+                            ->where('new', null)
                             ->first();
                 if ( $section == null ) {
                     $sectionError = [
@@ -189,31 +199,84 @@ class ApiMobileController extends Controller
             ]);
         }
         // Insert
+        $insertSection = ['id' => null];
+        if ( $newSection['id'] != 0 ) {
+            $insertSection['id'] = $newSection['id'];
+        } else {
+            $section = Section::where('section', $newSection['section'])
+                            ->where('new', null)
+                            ->whereRelation('state', 'id', $newState['id'])
+                            ->whereRelation('municipality', 'id', $newMunicipality['id'])
+                            ->whereRelation('localDistrict', 'id', $newLocalDistrict['id'])
+                            ->whereRelation('federalDistrict', 'id', $newFederalDistrict['id'])
+                            ->first();
+            if ( $section == null ) {
+                $section = Section::create([
+                    'section' => $newSection['section'],
+                    'new' => true,
+                    'state_id' => $newState['id'],
+                    'municipality_id' => $newMunicipality['id'],
+                    'federal_district_id' => $newLocalDistrict['id'],
+                    'local_district_id' => $newFederalDistrict['id'],
+                ]);
+            }
+            $insertSection['id'] = $section->id;
+        }
+
+        $insertBirthdate = date_create_from_format('Y-m-d', $newBirthdate['year'] . '-' . $newBirthdate['month'] . '-' . $newBirthdate['day']);
+
+        $imageFirm64 = base64_decode($newVolunteer['imageFirm']);
+        $nameImageFirm = 'images/' . Str::uuid() . Str::random(10) . '.jpg';
+        $imageFirm = Storage::put($nameImageFirm, $imageFirm64);
+
+        $imageCredential64 = base64_decode($newVolunteer['imageCredential']);
+        $nameImageCredential = 'images/' . Str::uuid() . Str::random(10) . '.jpg';
+        $imageCredential = Storage::put($nameImageCredential, $imageCredential64);
+
+        if ( $imageFirm != true || $imageCredential != true ) {
+            return response()->json([
+                'success' => true,
+                'errors' => [
+                    'imageFirm' => $imageFirm,
+                    'imageCredential' => $imageCredential,
+                ]
+            ]);
+        }
 
         $volunteer = Volunteer::create([
             'name' => $newVolunteer['name'],
-            'fathers_lastname' => $newVolunteer['name'],
-            'mothers_lastname' => $newVolunteer['name'],
-            'email' => $newVolunteer['name'],
-            'phone' => $newVolunteer['name'],
-            'section_id' => 1,
-            'sympathizer_id' => 1,
-            'campaign_id' => 1
+            'fathers_lastname' => $newVolunteer['fathersLastname'],
+            'mothers_lastname' => $newVolunteer['mothersLastname'],
+            'email' => $newVolunteer['email'],
+            'phone' => $newVolunteer['phone'],
+            'section_id' => $insertSection['id'],
+            'sympathizer_id' => $sympathizer['id'],
+            'campaign_id' => $campaign['id'],
+        ]);
+
+        $address = Address::create([
+            'street' => $newAddress['street'],
+            'external_number' => $newAddress['externalNumber'],
+            'internal_number' => $newAddress['internalNumber'],
+            'suburb' => $newAddress['suburb'],
+            'zipcode' => $newAddress['zipcode'],
+            'volunteer_id' => $volunteer->id,
         ]);
 
         $AuxVolunteer = AuxVolunteer::create([
-            'image_path_ine' => $newVolunteer['name'],
-            'image_path_firm' => $newVolunteer['name'],
-            'birthdate' => $newVolunteer['birthdate'],
-            'sector' => $newVolunteer['name'],
-            'type' => $newVolunteer['name'],
-            'elector_key' => $newVolunteer['name'],
-            'local_voting_booth' => $newVolunteer['name'],
-            'volunteer_id' => $volunteer->id
+            'image_path_ine' => $nameImageCredential,
+            'image_path_firm' => $nameImageFirm,
+            'birthdate' => $insertBirthdate,
+            'sector' => $newVolunteer['sector'],
+            'type' => $newVolunteer['type'],
+            'notes' => $newVolunteer['notes'],
+            'elector_key' => $newVolunteer['electorKey'],
+            'local_voting_booth' => $newVolunteer['localVotingBooth'],
+            'volunteer_id' => $volunteer->id,
         ]);
 
         return response()->json([
-            'success' => false,
+            'success' => true,
             'volunteer' => $volunteer,
         ]);
 
