@@ -17,7 +17,7 @@ class CreateAuxVolunteersTable extends Migration
             $table->string('image_path_ine');
             $table->string('image_path_firm');
             $table->date('birthdate');
-            $table->text('notes', 512)->nullable();
+            $table->string('notes', 512)->nullable();
             $table->string('sector', 50);
             $table->enum('type', ['0','1','2']); // 0 -> Representante general, 1 -> Representante de casilla, 2 -> Otro
             $table->string('elector_key', 18);

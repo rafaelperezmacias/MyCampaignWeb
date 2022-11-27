@@ -10,8 +10,10 @@ use App\Models\Municipality;
 use App\Models\Section;
 use App\Models\State;
 use App\Models\Volunteer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -51,6 +53,35 @@ class ApiMobileController extends Controller
         ]);
     }
 
+    public function login(Request $request) {
+        $user = $request->input('user');
+
+        if ( !Auth::attempt(['email' => $user['email'], 'password' => $user['password']]) ) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized'
+            ]);
+        }
+
+        $user = User::where('email', $user['email'])
+                    ->where('userable_type', 'App\Models\Sympathizer')
+                    ->first();
+
+        if ( $user == null ) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Fail'
+            ]);
+        }
+
+        $user->userable->campaigns;
+
+        return response()->json([
+            'success' => true,
+            'user' => $user,
+        ]);
+    }
+
     public function volunteer(Request $request) {
         $newVolunteer = $request->input('volunteer');
         $newBirthdate = $request->input('volunteer.birthdate');
@@ -66,27 +97,33 @@ class ApiMobileController extends Controller
         // Estado
         $state = State::where('id', $newState['id'])->first();
         if ( $state == null ) {
+            $state = State::where('name', $newState['name'])->first();
+            if ( $state == null ) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => [
+                        'state' => [
+                            'id' => 0,
+                        ],
+                    ],
+                ]);
+            }
             return response()->json([
                 'success' => false,
                 'errors' => [
-                    'state' => [
-                        'id' => 'invalid',
-                    ]
+                    'state' => $state,
                 ],
             ]);
         } else if ( $state->name != $newState['name'] ) {
             return response()->json([
                 'success' => false,
                 'errors' => [
-                    'state' => [
-                        'name' => 'invalid',
-                        'value_name' => $state->name,
-                    ]
+                    'state' => $state,
                 ],
             ]);
         }
         // Municipio
-        $municipalityError = null;
+        $municipalityError = false;
         $municipality = null;
         if ( $newMunicipality['id'] == 0 ) {
             $municipality = Municipality::where('number', $newMunicipality['number'])
@@ -94,6 +131,7 @@ class ApiMobileController extends Controller
                                 ->whereRelation('section', 'state_id', $newMunicipality['stateId'])
                                 ->first();
             if ( $municipality == null ) {
+                $municipalityError = true;
                 $municipality = Municipality::where('number', $newMunicipality['number'])
                                 ->whereRelation('section', 'state_id', $newMunicipality['stateId'])
                                 ->first();
@@ -102,13 +140,13 @@ class ApiMobileController extends Controller
                                     ->whereRelation('section', 'state_id', $newMunicipality['stateId'])
                                     ->first();
                 }
-                $municipalityError = [
-                    'value' => $municipality
-                ];
+                if ( $municipality == null ) {
+                    $municipality = ['id' => 0];
+                }
             }
         }
         // Distrito local
-        $localDistrictError = null;
+        $localDistrictError = false;
         $localDistrict = null;
         if ( $newLocalDistrict['id'] == 0 ) {
             $localDistrict = LocalDistrict::where('number', $newLocalDistrict['number'])
@@ -116,6 +154,7 @@ class ApiMobileController extends Controller
                                 ->whereRelation('section', 'state_id', $newLocalDistrict['stateId'])
                                 ->first();
             if ( $localDistrict == null ) {
+                $localDistrictError = true;
                 $localDistrict = LocalDistrict::where('number', $newLocalDistrict['number'])
                                 ->whereRelation('section', 'state_id', $newLocalDistrict['stateId'])
                                 ->first();
@@ -124,13 +163,13 @@ class ApiMobileController extends Controller
                                     ->whereRelation('section', 'state_id', $newLocalDistrict['stateId'])
                                     ->first();
                 }
-                $localDistrictError = [
-                    'value' => $localDistrict
-                ];
+                if ( $localDistrict == null ) {
+                    $localDistrict = ['id' => 0];
+                }
             }
         }
         // Distrito federal
-        $federalDistrictError = null;
+        $federalDistrictError = false;
         $federalDistrict = null;
         if ( $newFederalDistrict['id'] == 0 ) {
             $federalDistrict = FederalDistrict::where('number', $newFederalDistrict['number'])
@@ -138,6 +177,7 @@ class ApiMobileController extends Controller
                         ->whereRelation('section', 'state_id', $newFederalDistrict['stateId'])
                         ->first();
             if ( $federalDistrict == null ) {
+                $federalDistrictError = true;
                 $federalDistrict = FederalDistrict::where('number', $newFederalDistrict['number'])
                             ->whereRelation('section', 'state_id', $newFederalDistrict['stateId'])
                             ->first();
@@ -146,55 +186,51 @@ class ApiMobileController extends Controller
                                 ->whereRelation('section', 'state_id', $newFederalDistrict['stateId'])
                                 ->first();
                 }
-                $federalDistrictError = [
-                    'value' => $federalDistrict
-                ];
+                if ( $federalDistrict == null ) {
+                    $federalDistrict = ['id' => 0];
+                }
             }
         }
-        if ( $municipalityError != null || $localDistrictError != null || $federalDistrictError != null ) {
+        if ( $municipalityError || $localDistrictError || $federalDistrictError ) {
             return response()->json([
                 'success' => false,
                 'errors' => [
-                    'municipality' => $municipalityError,
-                    'localDistrict' => $localDistrictError,
-                    'federalDistrict' => $federalDistrictError,
+                    'municipality' => $municipalityError == null ? null : $municipality,
+                    'localDistrict' =>$localDistrictError == null ? null : $localDistrict,
+                    'federalDistrict' => $federalDistrictError == null ? null : $federalDistrict,
                 ]
             ]);
         }
         $section = null;
-        $sectionError = null;
+        $sectionError = false;
         if ( $newSection['id'] == 0 ) {
             $section = Section::where('section', $newSection['section'])
                         ->where('new', null)
                         ->whereRelation('state', 'id', $newState['id'])
                         ->with(['state','municipality','localDistrict','federalDistrict'])
                         ->first();
-            if ( $section != null && ( $section->municipality->id != $newMunicipality['id']
-                || $section->localDistrict->id != $newLocalDistrict['id']
-                || $section->federalDistrict->id != $newFederalDistrict['id'] ))
-                {
-                    $sectionError = [
-                        'value' => $section
-                    ];
+            if ( $section != null && ( $section->municipality->number != $newMunicipality['number']
+                || $section->localDistrict->number != $newLocalDistrict['number']
+                || $section->federalDistrict->number != $newFederalDistrict['number'] )) {
+                    $sectionError = true;
             } else {
-                $section = Section::whereRelation('state', 'id', $newState['id'])
-                            ->whereRelation('municipality', 'id', $newMunicipality['id'])
-                            ->whereRelation('localDistrict', 'id', $newLocalDistrict['id'])
-                            ->whereRelation('federalDistrict', 'id', $newFederalDistrict['id'])
+                $section = Section::whereRelation('state', 'id', $state->id)
+                            ->whereRelation('municipality', 'id', $municipality->id ?? $newMunicipality['id'])
+                            ->whereRelation('localDistrict', 'id', $localDistrict->id ?? $newLocalDistrict['id'])
+                            ->whereRelation('federalDistrict', 'id', $federalDistrict->id ?? $newFederalDistrict['id'])
                             ->where('new', null)
                             ->first();
                 if ( $section == null ) {
-                    $sectionError = [
-                        'valid' => false,
-                    ];
+                    $section = ['id' => 0];
+                    $sectionError = true;
                 }
             }
         }
-        if ( $sectionError != null ) {
+        if ( $sectionError ) {
             return response()->json([
                 'success' => false,
                 'errors' => [
-                    'section' => $sectionError,
+                    'section' => $section,
                 ]
             ]);
         }
@@ -205,19 +241,19 @@ class ApiMobileController extends Controller
         } else {
             $section = Section::where('section', $newSection['section'])
                             ->where('new', null)
-                            ->whereRelation('state', 'id', $newState['id'])
-                            ->whereRelation('municipality', 'id', $newMunicipality['id'])
-                            ->whereRelation('localDistrict', 'id', $newLocalDistrict['id'])
-                            ->whereRelation('federalDistrict', 'id', $newFederalDistrict['id'])
+                            ->whereRelation('state', 'id', $state->id)
+                            ->whereRelation('municipality', 'id', $municipality->id)
+                            ->whereRelation('localDistrict', 'id', $localDistrict->id)
+                            ->whereRelation('federalDistrict', 'id', $federalDistrict->id)
                             ->first();
             if ( $section == null ) {
                 $section = Section::create([
                     'section' => $newSection['section'],
                     'new' => true,
-                    'state_id' => $newState['id'],
-                    'municipality_id' => $newMunicipality['id'],
-                    'federal_district_id' => $newLocalDistrict['id'],
-                    'local_district_id' => $newFederalDistrict['id'],
+                    'state_id' => $state->id,
+                    'municipality_id' => $municipality->id,
+                    'federal_district_id' => $localDistrict->id,
+                    'local_district_id' => $federalDistrict->id,
                 ]);
             }
             $insertSection['id'] = $section->id;
