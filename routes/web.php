@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });
 
+Route::get('/password/reset', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+
 /*
 Route::middleware([
     'auth:sanctum',
@@ -32,6 +36,9 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 }); */
+Route::get('/dashboard', function () {
+    return redirect('/home');
+});
 
 // Home
 Route::get('home', [HomeController::class, 'index'])->name('home.index');

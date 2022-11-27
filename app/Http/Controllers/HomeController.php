@@ -19,6 +19,7 @@ class HomeController extends Controller
     {
         //
 
+        return view('homeCopy');
         // Campaña actual
         // TODO: Cuando se implemente la autentificacion cambiar este code
         $currentAdministrator = Administrator::get()->first();
