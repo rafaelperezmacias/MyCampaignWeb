@@ -69,13 +69,14 @@
                                 <p>Voluntarios</p>
                             </a>
                         </li>
+                        <!--
                         <li class="nav-header">LOGOUT</li>
                         <li class="nav-item">
                             <a href="../gallery.html" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>Cerrar sesión</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

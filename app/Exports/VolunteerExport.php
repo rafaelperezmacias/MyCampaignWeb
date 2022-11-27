@@ -5,8 +5,9 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class VolunteerExport implements FromCollection, WithHeadings
+class VolunteerExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -25,7 +26,9 @@ class VolunteerExport implements FromCollection, WithHeadings
             WHEN aux_volunteers.type = '1' THEN 'Representante de Casilla'
             WHEN aux_volunteers.type = '2' THEN 'Otro'
         END type_volunteer,
-        CONCAT(addresses.street,' EXT. ', addresses.external_number, '  INT. ',addresses.internal_number, ' ', addresses.suburb,' CP ',addresses.zipcode) AS address,
+        CONCAT(addresses.street,' EXT. ', addresses.external_number,
+				IF (ISNULL(addresses.internal_number),  '', CONCAT(' INT. ', addresses.internal_number)),
+				' ', addresses.suburb,' CP ',addresses.zipcode) AS address,
         sections.section,
         states.name state
         FROM volunteers
@@ -43,6 +46,7 @@ class VolunteerExport implements FromCollection, WithHeadings
         ON sections.federal_district_id = federal_districts.id
         INNER JOIN addresses
         ON volunteers.id = addresses.volunteer_id
+        WHERE volunteers.deleted_at is null
         ORDER BY volunteers.name"));
         return collect($export);
     }
