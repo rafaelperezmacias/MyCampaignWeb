@@ -33,7 +33,7 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&d
             </div>
             <div class="row">
                 <div class="col-12 text-right">
-                    <h1><a href="{{ route('volunteers.create') }}" type="reset" class="btn btn-outline-primary align-bottom pl-5 pr-5">Exportar datos</a></h1>
+                    <h1><a href="{{ route('volunteers.exportToExcel') }}" class="btn btn-outline-primary align-bottom pl-5 pr-5">Exportar datos</a></h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
