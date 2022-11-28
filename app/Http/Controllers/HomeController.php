@@ -44,6 +44,7 @@ class HomeController extends Controller
                 'allCampaigns' => $allCampaigns,
                 'firtsCampaigns' => $firtsCampaigns,
                 'campaign' => $campaing,
+                'currentAdministrator' => $currentAdministrator
             ]);
     }
 

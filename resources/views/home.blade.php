@@ -23,9 +23,9 @@
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-primary navbar-dark elevation-3">
             <div class="container">
-                <a href="../../index3.html" class="navbar-brand">
-                    <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-                        class="brand-image img-circle elevation-3" style="opacity: .8">
+                <a class="navbar-brand">
+                    <img src="{{ asset('img/logo3.png') }}" alt="AdminLTE Logo"
+                        class="brand-image img-circle elevation-3">
                     <span class="brand-text font-weight-dark fs-4">My Campaign</span>
                 </a>
                 <ul class="nav nav-pills p-2 ml-5 mr-5 w-100 nav-justified">
@@ -40,18 +40,17 @@
                     <!-- Messages Dropdown Menu -->
                     <li class="nav-item dropdown user-menu">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ asset('img/user2-160x160.jpg') }}" class="user-image img-circle elevation-2"
+                            <img src="{{ asset('img/noimg.jpg') }}" class="user-image img-circle elevation-2"
                                 alt="User Image">
-                            <span class="d-none d-md-inline">Alexander Pierce</span>
+                            <span class="d-none d-md-inline">{{ $currentAdministrator->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             <!-- User image -->
                             <li class="user-header bg-primary">
-                                <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                                <img src="{{ asset('img/noimg.jpg') }}" class="img-circle elevation-2"
                                     alt="User Image">
                                 <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2012</small>
+                                    {{ $currentAdministrator->name }}
                                 </p>
                             </li>
                             <!-- Menu Body -->
@@ -87,7 +86,7 @@
                                                         <p>Voluntario(s)</p>
                                                     </div>
                                                     <div class="icon">
-                                                        <i class="fas fa-shopping-cart"></i>
+                                                        <i class="fas fa-user-plus"></i>
                                                     </div>
                                                     <a href="{{ route('volunteers.index') }}" class="small-box-footer">
                                                         Ver detalles... <i class="fas fa-arrow-circle-right"></i>
@@ -103,7 +102,7 @@
                                                         <p>Simpatizante(s)</p>
                                                     </div>
                                                     <div class="icon">
-                                                        <i class="ion ion-stats-bars"></i>
+                                                        <i class="fas fa-users"></i>
                                                     </div>
                                                     <a href="{{ route('sympathizers.index') }}" class="small-box-footer">
                                                         Ver detalles... <i class="fas fa-arrow-circle-right"></i>
@@ -119,7 +118,7 @@
                                                         <p>Administradores(s)</p>
                                                     </div>
                                                     <div class="icon">
-                                                        <i class="fas fa-user-plus"></i>
+                                                        <i class="fas fa-user-shield"></i>
                                                     </div>
                                                     <a href="{{ route('administrators.index') }}" class="small-box-footer">
                                                         Ver detalles... <i class="fas fa-arrow-circle-right"></i>

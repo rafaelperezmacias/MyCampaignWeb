@@ -128,7 +128,7 @@ class SympathizerController extends Controller
 
         $request->validate([
             'name'           => ['required', 'string', 'max:120'],
-            'email'          => ['required', 'string', 'max:255', 'regex:' . $email_expression, Rule::unique('users')->ignore($sympathizer->user->id, 'id')],
+            //'email'          => ['required', 'string', 'max:255', 'regex:' . $email_expression, Rule::unique('users')->ignore($sympathizer->user->id, 'id')],
             'authorized'     => ['required', 'boolean'],
         ]);
 

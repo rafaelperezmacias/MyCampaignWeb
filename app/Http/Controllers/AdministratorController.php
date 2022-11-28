@@ -145,7 +145,7 @@ class AdministratorController extends Controller
 
         $request->validate([
             'name'           => ['required', 'string', 'max:120'],
-            'email'          => ['required', 'string', 'max:255', 'regex:' . $email_expression, Rule::unique('users')->ignore($administrator->user->id, 'id')],
+            //'email'          => ['required', 'string', 'max:255', 'regex:' . $email_expression, Rule::unique('users')->ignore($administrator->user->id, 'id')],
         ]);
 
         Administrator::where('id', $administrator->id)->update($request->only('name'));
