@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Blank Page</title>
+    <title>MyCampaign</title>
     @yield('css')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -24,10 +24,9 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="../../index3.html" class="brand-link">
-                <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                    style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <a href="{{ route('home.index') }}" class="brand-link">
+                <img src="{{ asset('img/logo3.png') }}" alt="MyCampaign Logo" class="brand-image img-circle elevation-3">
+                <span class="brand-text font-weight-light">MyCampaign</span>
             </a>
 
             <!-- Sidebar -->
@@ -39,43 +38,44 @@
                         <li class="nav-header">MENU</li>
                         <li class="nav-item">
                             <a href="{{ route('home.index') }}" class="nav-link">
-                                <i class="nav-icon far fa-image"></i>
+                                <i class="nav-icon fas fa-house-user"></i>
                                 <p>Inicio</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             @if ( isset($campaign) )
                                 <a href="{{ route('campaigns.show', $campaign) }}" class="nav-link {{ isset($sidebar) && $sidebar == 'Campaing' ? 'active' : '' }}">
-                                    <i class="nav-icon far fa-image"></i>
+                                    <i class="nav-icon fas fa-flag"></i>
                                     <p>Campaña</p>
                                 </a>
                             @endif
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('administrators.index') }}" class="nav-link {{ isset($sidebar) && $sidebar == 'Administrators' ? 'active' : '' }}">
-                                <i class="nav-icon far fa-image"></i>
+                                <i class="nav-icon fas fa-user-shield"></i>
                                 <p>Administradores</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('sympathizers.index') }}" class="nav-link {{ isset($sidebar) && $sidebar == 'Sympathizers' ? 'active' : '' }}">
-                                <i class="nav-icon far fa-image"></i>
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>Simpatizantes</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('volunteers.index') }}" class="nav-link {{ isset($sidebar) && $sidebar == 'Volunteers' ? 'active' : '' }}">
-                                <i class="nav-icon far fa-image"></i>
+                                <i class="nav-icon fas fa-user-plus"></i>
                                 <p>Voluntarios</p>
                             </a>
                         </li>
+                        <!--
                         <li class="nav-header">LOGOUT</li>
                         <li class="nav-item">
                             <a href="../gallery.html" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>Cerrar sesión</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -88,9 +88,9 @@
 
         <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
-                <b>Version</b> 3.2.0
+                <b>Version</b> 0.19
             </div>
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            <strong>Copyright &copy; 2022 RockyTheRock</a>.</strong> All rights
             reserved.
         </footer>
 

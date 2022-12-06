@@ -76,4 +76,5 @@ Route::resource('campaigns', CampaignController::class);
 Route::resource('sympathizers', SympathizerController::class);
 
 // Voluntarios
+Route::get('volunteers/exportToExcel', [VolunteerController::class, 'exportToExcel'])->name('volunteers.exportToExcel');
 Route::resource('volunteers', VolunteerController::class);

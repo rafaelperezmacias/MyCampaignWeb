@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('sections', [ApiMobileController::class, 'sections']);
 Route::post('volunteer', [ApiMobileController::class, 'volunteer']);
+Route::post('login', [ApiMobileController::class, 'login']);

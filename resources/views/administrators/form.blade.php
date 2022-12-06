@@ -70,19 +70,19 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <h6 class="d-flex @error('email') text-danger @enderror">Correo electrónico</h6>
-                                    <div class="form-group ">
-                                        <input type="email" name="email" id="email"
-                                            class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="Ingrese el correo electrónico del nuevo administrador" value="{{ old('email') ?? ($administrator->user->email ?? '') }}">
-                                        @error('email')
-                                            <div class="invalid-feedback">
-                                                <i class="bx bx-radio-circle"></i>
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
                                     @if ( !isset($administrator) )
+                                        <h6 class="d-flex @error('email') text-danger @enderror">Correo electrónico</h6>
+                                        <div class="form-group ">
+                                            <input type="email" name="email" id="email"
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                placeholder="Ingrese el correo electrónico del nuevo administrador" value="{{ old('email') ?? ($administrator->user->email ?? '') }}">
+                                            @error('email')
+                                                <div class="invalid-feedback">
+                                                    <i class="bx bx-radio-circle"></i>
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
                                         <h6 class="d-flex @error('password') text-danger @enderror">Contraseña</h6>
                                         <div class="form-group ">
                                             <input type="password" name="password" id="password"

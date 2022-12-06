@@ -45,13 +45,14 @@ class CampaignController extends Controller
     {
         //
         // Validaciones
-        /* $request->validate([
-            'name'           => ['required', 'string', 'max:100', 'min:1'],
-            'party'          => ['required', 'string', 'max:100', 'min:1'],
-            'start_date'     => ['required', 'string', 'max:30', 'min:8'],
-            'end_date'       => ['gt:0'],
-            'description'    => ['gt:0'],
-        ]); */
+        $request->validate([
+            'name'           => ['required', 'string', 'max:50'],
+            'party'          => ['required', 'string', 'max:50'],
+            'end_date'       => ['required', 'date'],
+            'start_date'     => ['required', 'date', 'before:end_date'],
+            'description'    => ['nullable', 'string', 'max:1024'],
+        ]);
+
         $administrator = Administrator::get()->first();
 
         $campaign = Campaign::create( $request->all() );

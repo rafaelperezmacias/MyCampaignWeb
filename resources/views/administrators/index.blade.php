@@ -57,16 +57,20 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&d
                             <td> {{ $administrator->name }} </td>
                             <td> {{ $administrator->user->email }} </td>
                             <td>
-                                <form action="{{ route('administrators.destroy', [$administrator]) }}" method="POST">
-                                    @method('DELETE')
-                                    @csrf
+                                <div class="row">
                                     <a href="{{ route('administrators.show', $administrator) }}" class="btn-sm btn-outline-success icon icon-left pt-2">
                                         <i class="fas fa-search"></i> Detalles
                                     </a>
-                                    <button type="submit"  class="btn-sm btn-outline-danger icon icon-left pt-2 border-0">
-                                        <i class="fas fa-eraser"></i> Borrar
-                                    </button>
-                                </form>
+                                    @if ( $administrator->id != 1 )
+                                        <form action="{{ route('administrators.destroy', [$administrator]) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit"  class="btn-sm btn-outline-danger icon icon-left pt-2 border-0">
+                                                <i class="fas fa-eraser"></i> Borrar
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                         @endforeach

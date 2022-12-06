@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use Laravel\Fortify\Rules\Password;
 
 class SympathizerController extends Controller
 {
@@ -62,6 +64,13 @@ class SympathizerController extends Controller
     public function store(Request $request)
     {
         //
+        $email_expression = '/^.+@.+\..+$/i';
+
+        $request->validate([
+            'name'           => ['required', 'string', 'max:120'],
+            'email'          => ['required', 'string', 'max:255', 'regex:' . $email_expression, 'unique:users'],
+            'password'       => ['required', 'string', new Password],
+        ]);
 
         $sympathizer = Sympathizer::create([
             'name' => $request->name,
@@ -115,6 +124,14 @@ class SympathizerController extends Controller
      */
     public function update(Request $request, Sympathizer $sympathizer)
     {
+        $email_expression = '/^.+@.+\..+$/i';
+
+        $request->validate([
+            'name'           => ['required', 'string', 'max:120'],
+            //'email'          => ['required', 'string', 'max:255', 'regex:' . $email_expression, Rule::unique('users')->ignore($sympathizer->user->id, 'id')],
+            'authorized'     => ['required', 'boolean'],
+        ]);
+
         Sympathizer::where('id', $sympathizer->id)->update($request->only('name', 'authorized'));
         User::where('id', $sympathizer->user->id)->update($request->only('email', 'password'));
 

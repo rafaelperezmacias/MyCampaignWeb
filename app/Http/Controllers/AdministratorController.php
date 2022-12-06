@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Validation\Rule;
+use Laravel\Fortify\Rules\Password;
 
 class AdministratorController extends Controller
 {
@@ -59,7 +61,13 @@ class AdministratorController extends Controller
     public function store(Request $request)
     {
         //
+        $email_expression = '/^.+@.+\..+$/i';
 
+        $request->validate([
+            'name'           => ['required', 'string', 'max:120'],
+            'email'          => ['required', 'string', 'max:255', 'regex:' . $email_expression, 'unique:users'],
+            'password'       => ['required', 'string', new Password],
+        ]);
         // Campaña actual
         // TODO: Cuando se implemente la autentificacion cambiar este code
         $currentAdministrator = Administrator::get()->first();
@@ -115,7 +123,6 @@ class AdministratorController extends Controller
 
         // Campaña actual
         // TODO: Cuando se implemente la autentificacion cambiar este code
-        $administrator = Administrator::get()->first();
 
         return view('administrators.form')
             ->with([
@@ -134,12 +141,18 @@ class AdministratorController extends Controller
     public function update(Request $request, Administrator $administrator)
     {
         //
+        $email_expression = '/^.+@.+\..+$/i';
+
+        $request->validate([
+            'name'           => ['required', 'string', 'max:120'],
+            //'email'          => ['required', 'string', 'max:255', 'regex:' . $email_expression, Rule::unique('users')->ignore($administrator->user->id, 'id')],
+        ]);
+
         Administrator::where('id', $administrator->id)->update($request->only('name'));
         User::where('id', $administrator->user->id)->update($request->only('email', 'password'));
 
         // Campaña actual
         // TODO: Cuando se implemente la autentificacion cambiar este code
-        $administrator = Administrator::get()->first();
 
         return redirect()->route('administrators.show', [$administrator])
             ->with([
@@ -155,6 +168,9 @@ class AdministratorController extends Controller
      */
     public function destroy(Administrator $administrator)
     {
+        if ( $administrator->id == 1 ) {
+            abort(403);
+        }
         $administrator->delete();
         return redirect()->route('administrators.index')->with(['mensaje' => 'Administrador eliminado', 'alert-type' => 'warning']);
     }

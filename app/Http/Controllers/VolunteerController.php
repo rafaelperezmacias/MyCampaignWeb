@@ -6,6 +6,8 @@ use App\Models\Administrator;
 use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\VolunteerExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VolunteerController extends Controller
 {
@@ -101,5 +103,10 @@ class VolunteerController extends Controller
         $volunteer->delete();
         return redirect()->route('volunteers.index')->with(['mensaje' => 'Voluntario eliminado', 'alert-type' => 'success']);
 
+    }
+
+    public function exportToExcel()
+    {
+        return Excel::download(new VolunteerExport, 'volunteers.xlsx');
     }
 }
