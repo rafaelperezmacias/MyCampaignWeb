@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });
 
-Route::get('/password/reset', function () {
+Route::get('password/reset', function () {
     return view('auth.forgot-password');
 })->middleware('guest')->name('password.request');
 

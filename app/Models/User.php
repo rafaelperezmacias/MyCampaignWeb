@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,6 +44,12 @@ class User extends Authenticatable
         'two_factor_secret',
     ];
 
+
+    public function getNameAttribute()
+    {
+        return 'Juan perez';
+    }
+
     /**
      * The attributes that should be cast.
      *
@@ -81,6 +88,6 @@ class User extends Authenticatable
 
     public function adminlte_profile_url()
     {
-        return 'profile/username';
+        return 'home.index';
     }
 }

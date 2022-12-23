@@ -40,7 +40,7 @@ class HomeController extends Controller
                 ]);
         }
 
-        return view('home')
+        return view('homeCopy')
             ->with([
                 'allCampaigns' => $allCampaigns,
                 'firtsCampaigns' => $firtsCampaigns,

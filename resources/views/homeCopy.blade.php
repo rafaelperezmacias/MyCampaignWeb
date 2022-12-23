@@ -8,14 +8,18 @@
 
 @section('content')
 
-            @stop
+@stop
 
-            @section('css')
-                <link rel="stylesheet" href="/css/admin_custom.css">
-            @stop
+@section('footer')
+    <h2>holi</h2>
+@stop
 
-            @section('js')
-                <script>
-                    console.log('Hi!');
-                </script>
-            @stop
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script>
+        console.log('Hi!');
+    </script>
+@stop
