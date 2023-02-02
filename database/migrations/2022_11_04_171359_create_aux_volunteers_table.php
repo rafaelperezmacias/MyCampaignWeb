@@ -14,16 +14,20 @@ class CreateAuxVolunteersTable extends Migration
     public function up()
     {
         Schema::create('aux_volunteers', function (Blueprint $table) {
+            $table->id();
+            
             $table->string('image_path_ine');
             $table->string('image_path_firm');
             $table->date('birthdate');
             $table->string('notes', 512)->nullable();
             $table->string('sector', 50);
+            //TODO Cambiar el enum por el tipo de voluntario
             $table->enum('type', ['0','1','2']); // 0 -> Representante general, 1 -> Representante de casilla, 2 -> Otro
             $table->string('elector_key', 18);
             $table->boolean('local_voting_booth'); // Va a defender la casilla en la seccion
 
             $table->foreignId('volunteer_id')->constrained()->onDelete('cascade');
+            
 
             $table->timestamps();
             $table->softDeletes();

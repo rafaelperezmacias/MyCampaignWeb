@@ -23,8 +23,7 @@ class CreateSectionsTable extends Migration
             $table->foreignId('federal_district_id')->constrained();
             $table->foreignId('local_district_id')->constrained();
 
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamps();
             $table->softDeletes();
         });
     }
